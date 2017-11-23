@@ -1,4 +1,4 @@
-# ButterflyFinder [![GitHub license]([![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0))](https://raw.githubusercontent.com/Shynixn/ButterflyFinder/master/LICENSE)
+# ButterflyFinder [![GitHub license](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0))](https://raw.githubusercontent.com/Shynixn/ButterflyFinder/master/LICENSE)
 
 | branch        | status        | download      |
 | ------------- | --------------| --------------| 
@@ -15,7 +15,7 @@ Advanced windows file finder.
 
 ## Installation
 
-* [Download the program ButterflyFinder](https://github.com/Shynixn/ButterflyFinder/releases)
+* [Download the file ButterflyFinder.zip](https://github.com/Shynixn/ButterflyFinder/releases)
 * Extract the zip file into any folder
 * Launch the program butterfyfinder.exe
 * Rightclick on the small icon in the bottom right corner of your windows toolbar and select 'Settings'
@@ -26,5 +26,4 @@ Advanced windows file finder.
 
 Copyright 2017 Shynixn
 
-GNU GENERAL PUBLIC LICENSE
-Version 3, 29 June 2007
+Licenced under the GNU GENERAL PUBLIC LICENSE
