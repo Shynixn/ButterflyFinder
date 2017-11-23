@@ -1,4 +1,4 @@
-# ButterflyFinder [![GitHub license](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0))](https://raw.githubusercontent.com/Shynixn/ButterflyFinder/master/LICENSE)
+# ButterflyFinder [![GitHub license](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://raw.githubusercontent.com/Shynixn/ButterflyFinder/master/LICENSE)
 
 | branch        | status        | download      |
 | ------------- | --------------| --------------| 
