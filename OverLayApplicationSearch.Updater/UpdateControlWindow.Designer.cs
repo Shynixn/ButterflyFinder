@@ -48,7 +48,7 @@
             this.labelMessage.TabIndex = 1;
             this.labelMessage.Text = "Checking version...";
             // 
-            // Form1
+            // UpdateControlWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -58,10 +58,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form1";
+            this.Name = "UpdateControlWindow";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "OverlayApplicationSearch Updater";
+            this.Text = "ButterflyFinder Updater";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

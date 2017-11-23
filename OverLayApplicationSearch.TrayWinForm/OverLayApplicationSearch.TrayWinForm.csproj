@@ -87,6 +87,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Content Include="cache.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -126,7 +129,7 @@
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Release (
 if not exist "$(SolutionDir)releases" mkdir "$(SolutionDir)releases"
-powershell Compress-Archive -Path '$(TargetDir)butterflyfinder.exe',  '$(TargetDir)NewUpdate.exe', '$(TargetDir)Butterfly.UI.exe', '$(TargetDir)x64', '$(TargetDir)x86',  '$(TargetDir)*.dll' -DestinationPath '$(SolutionDir)releases\ButterflyFinder.zip' -Force
+powershell Compress-Archive -Path '$(TargetDir)butterflyfinder.exe',  '$(TargetDir)cache.dat',  '$(TargetDir)NewUpdate.exe', '$(TargetDir)Butterfly.UI.exe', '$(TargetDir)x64', '$(TargetDir)x86',  '$(TargetDir)*.dll' -DestinationPath '$(SolutionDir)releases\ButterflyFinder.zip' -Force
 )
 
 </PostBuildEvent>
