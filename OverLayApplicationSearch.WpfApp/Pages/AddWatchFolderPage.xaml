@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="OverLayApplicationSearch.WpfApp.AddWatchFolderPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:OverLayApplicationSearch.WpfApp"
+             mc:Ignorable="d"
+             d:DesignHeight="500" d:DesignWidth="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="7*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
+            <Label VerticalContentAlignment="Stretch" VerticalAlignment="Center" FontFamily="Segoe UI Light"
+                   Name="sizeLabel" FontSize="20">
+                Add a folder you want to index:
+            </Label>
+            <Button Name="buttonAddFolderFolderSelect" DockPanel.Dock="Right"   Content="  ...  " Margin="5,0,0,0" Height="30" VerticalContentAlignment="Center" Click="buttonAddFolderFolderSelect_Click"/>
+            <TextBox x:Name="textBoxAddFolderFolderSelect" VerticalContentAlignment="Center" MinLines="1" MaxLines="1"
+                     VerticalAlignment="Center" FontSize="20" TextWrapping="Wrap" IsEnabled="True" Text=""
+                     FontFamily="Segoe UI Light" TextChanged="onTextChanged" />
+        </DockPanel>
+
+        <DockPanel Grid.Column="0" Grid.Row="2">
+            <Button Name="buttonAddFolderNext"  Padding="10" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                    Content="CONTINUE" Height="40" Background="#1ba1e2" Foreground="White" BorderThickness="0" Margin="5" Click="buttonAddFolderNext_Click"/>
+            <Button Name="buttonCreateTaskBack"  Padding="10" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5"
+                    Content="CANCEL" Height="40" Background="Transparent" Foreground="Gray" BorderThickness="0" Click="buttonAddFolderBack_Click" />
+            <Label Name="labelAddFolderMessage" FontFamily="Segoe UI Light" Foreground="Red"></Label>
+        </DockPanel>
+
+        <DockPanel Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center">
+            <Grid Margin="20,5,7,5" HorizontalAlignment="Left">
+                <Ellipse Fill="#1ba1e2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="22" Height="22" />
+                <Label Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"
+                       Margin="0,1,2,1">
+                    1
+                </Label>
+            </Grid>
+            <Label HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12">Add folder</Label>
+            <Separator Margin="5,0,5,0" HorizontalAlignment="Left" Width="100" />
+            <Grid Margin="20,5,7,5" HorizontalAlignment="Left">
+                <Ellipse Fill="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" Width="22" Height="22" />
+                <Label Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"
+                       Margin="0,1,2,1">
+                    2
+                </Label>
+            </Grid>
+            <Label HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Foreground="Gray">Select time schedule</Label>
+            <Separator Margin="5,0,5,0" HorizontalAlignment="Left" Width="100" />
+            <Grid Margin="20,5,7,5" HorizontalAlignment="Left">
+                <Ellipse Fill="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" Width="22" Height="22" />
+                <Label Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"
+                       Margin="0,1,2,1">
+                    3
+                </Label>
+            </Grid>
+            <Label Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12">Add to list</Label>
+        </DockPanel>
+
+    </Grid>
+</UserControl>

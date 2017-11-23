@@ -1,0 +1,1 @@
+﻿INSERT INTO SHY_FILECACHE(name, parent_id, timetask_id) VALUES (@param0, @param1, @param2);

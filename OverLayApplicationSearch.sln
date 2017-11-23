@@ -1,0 +1,73 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverLayApplicationSearch.WpfApp", "OverLayApplicationSearch.WpfApp\OverLayApplicationSearch.WpfApp.csproj", "{2E0F146D-1BE6-4C18-BC61-CC5012F24404}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverLayApplicationSearch.Logic", "OverLayApplicationSearch.Logic\OverLayApplicationSearch.Logic.csproj", "{ADE75866-B4BE-40A7-A15F-FD56604DF2D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverLayApplicationSearch.TrayWinForm", "OverLayApplicationSearch.TrayWinForm\OverLayApplicationSearch.TrayWinForm.csproj", "{A938818E-9B14-4655-9BB0-9168C5405F5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverLayApplicationSearch.Contract", "OverLayApplicationSearch.Contract\OverLayApplicationSearch.Contract.csproj", "{0249A11B-7451-428E-8C74-0266F665A6F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverLayApplicationSearch.Test", "OverLayApplicationSearch.Test\OverLayApplicationSearch.Test.csproj", "{6945BF40-992A-49A9-AC6C-5D6F6634290E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resource", "Resource", "{C2D3B3EA-2A2E-4021-9FC8-925D117C133A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{AE107477-8A33-440A-B0EF-D26E723A745C}"
+	ProjectSection(SolutionItems) = preProject
+		OverLayApplicationSearch.Logic\Resource\SQL\create-sqlite.sql = OverLayApplicationSearch.Logic\Resource\SQL\create-sqlite.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TimeTask", "TimeTask", "{61862CE2-2CBB-4809-881A-CB6CF986D0F3}"
+	ProjectSection(SolutionItems) = preProject
+		OverLayApplicationSearch.Logic\Resource\SQL\TimeTask\count.sql = OverLayApplicationSearch.Logic\Resource\SQL\TimeTask\count.sql
+		OverLayApplicationSearch.Logic\Resource\SQL\TimeTask\delete.sql = OverLayApplicationSearch.Logic\Resource\SQL\TimeTask\delete.sql
+		OverLayApplicationSearch.Logic\Resource\SQL\TimeTask\insert.sql = OverLayApplicationSearch.Logic\Resource\SQL\TimeTask\insert.sql
+		OverLayApplicationSearch.Logic\Resource\SQL\TimeTask\select.sql = OverLayApplicationSearch.Logic\Resource\SQL\TimeTask\select.sql
+		OverLayApplicationSearch.Logic\Resource\SQL\TimeTask\selectbyid.sql = OverLayApplicationSearch.Logic\Resource\SQL\TimeTask\selectbyid.sql
+		OverLayApplicationSearch.Logic\Resource\SQL\TimeTask\update.sql = OverLayApplicationSearch.Logic\Resource\SQL\TimeTask\update.sql
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverLayApplicationSearch.Updater", "OverLayApplicationSearch.Updater\OverLayApplicationSearch.Updater.csproj", "{C5EB18C5-18AD-498B-8813-C45A9B05F25E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E0F146D-1BE6-4C18-BC61-CC5012F24404}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E0F146D-1BE6-4C18-BC61-CC5012F24404}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E0F146D-1BE6-4C18-BC61-CC5012F24404}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E0F146D-1BE6-4C18-BC61-CC5012F24404}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADE75866-B4BE-40A7-A15F-FD56604DF2D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADE75866-B4BE-40A7-A15F-FD56604DF2D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADE75866-B4BE-40A7-A15F-FD56604DF2D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADE75866-B4BE-40A7-A15F-FD56604DF2D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A938818E-9B14-4655-9BB0-9168C5405F5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A938818E-9B14-4655-9BB0-9168C5405F5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A938818E-9B14-4655-9BB0-9168C5405F5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A938818E-9B14-4655-9BB0-9168C5405F5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0249A11B-7451-428E-8C74-0266F665A6F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0249A11B-7451-428E-8C74-0266F665A6F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0249A11B-7451-428E-8C74-0266F665A6F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0249A11B-7451-428E-8C74-0266F665A6F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6945BF40-992A-49A9-AC6C-5D6F6634290E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6945BF40-992A-49A9-AC6C-5D6F6634290E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6945BF40-992A-49A9-AC6C-5D6F6634290E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6945BF40-992A-49A9-AC6C-5D6F6634290E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5EB18C5-18AD-498B-8813-C45A9B05F25E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5EB18C5-18AD-498B-8813-C45A9B05F25E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5EB18C5-18AD-498B-8813-C45A9B05F25E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5EB18C5-18AD-498B-8813-C45A9B05F25E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AE107477-8A33-440A-B0EF-D26E723A745C} = {C2D3B3EA-2A2E-4021-9FC8-925D117C133A}
+		{61862CE2-2CBB-4809-881A-CB6CF986D0F3} = {AE107477-8A33-440A-B0EF-D26E723A745C}
+	EndGlobalSection
+EndGlobal

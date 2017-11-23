@@ -1,0 +1,9 @@
+﻿CREATE TABLE IF NOT EXISTS SHY_FILECACHE
+(
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  parent_id INTEGER,
+  timetask_id INTEGER,
+  CONSTRAINT forkey_parent_id_cs FOREIGN KEY (parent_id) REFERENCES SHY_FILECACHE(id),
+  CONSTRAINT forkey_timetask_id_cs FOREIGN KEY (timetask_id) REFERENCES SHY_TIMETASK(id)
+);

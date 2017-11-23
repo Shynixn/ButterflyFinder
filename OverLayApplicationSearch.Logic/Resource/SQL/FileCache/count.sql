@@ -1,0 +1,1 @@
+﻿select COUNT(*) from SHY_FILECACHE;
