@@ -17,11 +17,11 @@
         
         <DockPanel Grid.Row="0" VerticalAlignment="Center">
             <Button Name="buttonCreateTaskNext"  Padding="10" HorizontalAlignment="Left" 
-                    Content="CREATE NEW TASK" Height="40" Background="#1ba1e2" Foreground="White" BorderThickness="0" Margin="5" Click="buttonListItemsCreateNewTask"/>
+                    Content="CREATE NEW TASK" Height="40" Background="#1ba1e2" Foreground="White" BorderThickness="0" Margin="0 5 5 5" Click="buttonListItemsCreateNewTask"/>
 
-            <Grid Height="25" Margin="20">
+            <Grid Height="40">
                 <ProgressBar x:Name="taskProgressBar" 
-                             Maximum="100"  Minimum="0" ></ProgressBar>
+                             Maximum="100"  Minimum="0" Margin="25 0 0 0"></ProgressBar>
                 <TextBlock Name="taskProgressMesage" HorizontalAlignment="Center" VerticalAlignment="Center" Text="">
 
                 </TextBlock>

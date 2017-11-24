@@ -24,7 +24,7 @@ namespace OverLayApplicationSearch.Logic
         {
             try
             {
-                connectionContext = ConnectionContext.CreateConnectionContext("storage.sqlite");
+                connectionContext = ConnectionContext.CreateConnectionContext(AppDomain.CurrentDomain.BaseDirectory + "storage.sqlite");
                 using (var connection = connectionContext.Connection)
                 {
                     connectionContext.ExecuteStoredUpdated(
