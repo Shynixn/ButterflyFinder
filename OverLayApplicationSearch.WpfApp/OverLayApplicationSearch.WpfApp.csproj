@@ -94,6 +94,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>lang_en.resx</DependentUpon>
     </Compile>
+    <Compile Include="SearchWindowState.cs" />
     <Page Include="Pages\AddWatchFolderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

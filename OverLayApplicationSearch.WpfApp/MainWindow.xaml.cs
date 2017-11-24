@@ -37,6 +37,20 @@ namespace OverLayApplicationSearch.WpfApp
             KeyboardHook.KeyPressed += KeyboardHookOnKeyPressed;
             KeyboardHook.RegisterHotKey(ModifierKeys.Control, Keys.K);
             Factory.ReInitializeContext();
+            this.PreviewKeyDown += new System.Windows.Input.KeyEventHandler(HandleEsc);
+        }
+
+        /// <summary>
+        /// Handles pressing on the escape button and proceeds the window to state 2.
+        /// </summary>
+        /// <param name="sender">userInterface</param>
+        /// <param name="e">e</param>
+        private void HandleEsc(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                this.SetSearchWindowState(SearchWindowState.HIDDEN);
+            }
         }
 
         private void KeyboardHookOnKeyPressed(object sender, KeyPressedEventArgs e)
@@ -44,17 +58,17 @@ namespace OverLayApplicationSearch.WpfApp
             if (this.IsVisible == false)
             {
                 Show();
-                ChangeMode(0);
+                SetSearchWindowState(SearchWindowState.SEARCHBOX);
                 this.Topmost = true;
             }
             else if (fallback)
             {
-                ChangeMode(0);
+                SetSearchWindowState(SearchWindowState.SEARCHBOX);
                 fallback = false;
             }
             else
             {
-                ChangeMode(2);
+                SetSearchWindowState(SearchWindowState.HIDDEN);
             }
         }
 
@@ -63,7 +77,6 @@ namespace OverLayApplicationSearch.WpfApp
         {
             public string Path { get; set; }
             public string Name { get; set; }
-
             public ImageSource ImageSource { get; set; }
         }
 
@@ -72,12 +85,12 @@ namespace OverLayApplicationSearch.WpfApp
             this.messageBox.Visibility = Visibility.Hidden;
             this.resultListBox.Items.Clear();
             Keyboard.Focus(this.searchTextBox);
-            ChangeMode(2);
+            SetSearchWindowState(SearchWindowState.HIDDEN);
         }
 
-        private void ChangeMode(int modeType)
+        private void SetSearchWindowState(SearchWindowState state)
         {
-            if (modeType == 0)
+            if (state == SearchWindowState.SEARCHBOX)
             {
                 this.titlePanel.Opacity = 0.5;
                 this.resultListBox.Opacity = 0.5;
@@ -88,7 +101,7 @@ namespace OverLayApplicationSearch.WpfApp
                 Keyboard.Focus(this.searchTextBox);
                 this.searchTextBox.Focus();
             }
-            else if (modeType == 1)
+            else if (state == SearchWindowState.SEARCHRESULTS)
             {
                 this.titlePanel.Opacity = 1.0;
                 this.messageBox.Opacity = 1.0;
@@ -96,7 +109,7 @@ namespace OverLayApplicationSearch.WpfApp
                 this.messageBox.Visibility = Visibility.Hidden;
                 this.forgroundSearchBox.Visibility = Visibility.Hidden;
             }
-            else if (modeType == 2)
+            else if (state == SearchWindowState.HIDDEN)
             {
                 this.Hide();
             }
@@ -131,7 +144,7 @@ namespace OverLayApplicationSearch.WpfApp
             if (e.Key == Key.Return)
             {
                 resultListBox.Items.Clear();
-                ChangeMode(1);
+                SetSearchWindowState(SearchWindowState.SEARCHRESULTS);
                 fallback = true;
                 if (this.searchTextBox.Text.Trim().StartsWith("kill", StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -216,7 +229,7 @@ namespace OverLayApplicationSearch.WpfApp
                 }
                 else
                 {
-                    OpenSelectedListItemInExplorer();
+                    OpenSelectedListItemInExplorer(true);
                 }      
             }
         }
@@ -232,15 +245,18 @@ namespace OverLayApplicationSearch.WpfApp
             }
         }
 
-        private void OpenSelectedListItemInExplorer()
+        private void OpenSelectedListItemInExplorer(bool hideWindow)
         {
             DataInfo dataInfo = this.resultListBox.SelectedItem as DataInfo;
             if (dataInfo != null)
             {
                 OpenPathInExplorer(dataInfo.Path);
-                this.resultListBox.SelectedIndex = -1;
-                ChangeMode(1);
-                ChangeMode(2);
+                if (hideWindow)
+                {
+                    this.resultListBox.SelectedIndex = -1;
+                    SetSearchWindowState(SearchWindowState.SEARCHBOX);
+                    SetSearchWindowState(SearchWindowState.HIDDEN);
+                }
             }
         }
 
@@ -279,7 +295,7 @@ namespace OverLayApplicationSearch.WpfApp
             }
             else
             {
-                OpenSelectedListItemInExplorer();
+                OpenSelectedListItemInExplorer(true);
             }
         }
 
@@ -292,6 +308,22 @@ namespace OverLayApplicationSearch.WpfApp
                     return controller.Search(searchText, 100);
                 }
             });
+        }
+
+        private void onMouseDownEventListbox(object sender, MouseButtonEventArgs e)
+        {
+            if(e.ButtonState == e.MiddleButton)
+            {
+                if (processMode)
+                {
+                    KillListItem();
+                }
+                else
+                {
+                    this.Topmost = false;
+                    OpenSelectedListItemInExplorer(false);
+                }
+            }          
         }
     }
 }
