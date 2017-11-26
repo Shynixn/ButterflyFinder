@@ -88,7 +88,7 @@ namespace OverLayApplicationSearch.TrayWinForm
         {
             this.trayIcon.Visible = true;
             this.trayIcon.Icon = OverLayApplicationSearch.TrayWinForm.Properties.Resources.logo;
-            this.trayIcon.Text = "OverLayApplicationSearch";
+            this.trayIcon.Text = "ButterflyFinder";
             this.ShowInTaskbar = false;
             Opacity = 0;
             BeginInvoke(new MethodInvoker(delegate
@@ -99,6 +99,12 @@ namespace OverLayApplicationSearch.TrayWinForm
             ElementHost.EnableModelessKeyboardInterop(window);
             window.Show();
 
+        }
+
+        private void onTrayIconKlick(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            ElementHost.EnableModelessKeyboardInterop(ControlWindow);
+            ControlWindow.Show();
         }
     }
 }
