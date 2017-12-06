@@ -21,11 +21,6 @@ namespace OverLayApplicationSearch.TrayWinForm
                 MessageBox.Show("Another instance of the app is already running.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-         /*   if (IsUserAdministrator() == false)
-            {
-                MessageBox.Show("Please start this program as administrator.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }*/
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new ControlForm());

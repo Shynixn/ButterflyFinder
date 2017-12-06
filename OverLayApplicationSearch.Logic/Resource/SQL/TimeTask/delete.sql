@@ -1,1 +1,2 @@
 ﻿DELETE FROM SHY_TIMETASK WHERE id = @param0;
+DELETE FROM SHY_FILECACHE WHERE timetask_id = @param0;

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:OverLayApplicationSearch.WpfApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525" WindowStyle="None" ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen"  AllowsTransparency="True" Background="Transparent"  WindowState="Maximized">
+        WindowStartupLocation="CenterScreen"  AllowsTransparency="True" Background="Transparent"  >
 
 
     <Grid Loaded="OnLoaded" >

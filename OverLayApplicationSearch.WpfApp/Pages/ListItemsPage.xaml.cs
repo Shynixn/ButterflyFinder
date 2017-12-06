@@ -123,7 +123,7 @@ namespace OverLayApplicationSearch.WpfApp.Pages
         {
             if (ScanMode == false)
             {
-                MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this task?", "Delete",
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this task? All associated indexes will be deleted and the files remain untouched.", "Delete",
                     MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {

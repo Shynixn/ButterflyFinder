@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lib\WindowsFileExtension.cs" />
     <Compile Include="Persistence\Controller\FileCacheRepository.cs" />
     <Compile Include="Persistence\Entity\FileCache.cs" />
     <Compile Include="Factory.cs" />

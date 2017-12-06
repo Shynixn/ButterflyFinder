@@ -16,6 +16,10 @@ using OverLayApplicationSearch.Contract.Persistence.Entity;
 using OverLayApplicationSearch.Logic;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using Path = System.IO.Path;
+using Microsoft.Win32;
+using System.Runtime.InteropServices;
+using System.Text;
+using OverLayApplicationSearch.Logic.Lib;
 
 namespace OverLayApplicationSearch.WpfApp
 {
@@ -38,7 +42,13 @@ namespace OverLayApplicationSearch.WpfApp
             KeyboardHook.RegisterHotKey(ModifierKeys.Control, Keys.K);
             Factory.ReInitializeContext();
             this.PreviewKeyDown += new System.Windows.Input.KeyEventHandler(HandleEsc);
+
+      
+
+
         }
+
+
 
         /// <summary>
         /// Handles pressing on the escape button and proceeds the window to state 2.
@@ -77,7 +87,8 @@ namespace OverLayApplicationSearch.WpfApp
         {
             public string Path { get; set; }
             public string Name { get; set; }
-            public ImageSource ImageSource { get; set; }
+            public ImageSource ImageSource { get; set; }       
+            public string ExecuteAble { get; set; }
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -139,6 +150,36 @@ namespace OverLayApplicationSearch.WpfApp
             SetFocusToListBox();
         }
 
+        public void launchBrowser(string url)
+        {
+
+
+
+            string browserName = "iexplore.exe";
+            using (RegistryKey userChoiceKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice"))
+            {
+                if (userChoiceKey != null)
+                {
+                    object progIdValue = userChoiceKey.GetValue("Progid");
+                    if (progIdValue != null)
+                    {
+                        if (progIdValue.ToString().ToLower().Contains("chrome"))
+                            browserName = "chrome.exe";
+                        else if (progIdValue.ToString().ToLower().Contains("firefox"))
+                            browserName = "firefox.exe";
+                        else if (progIdValue.ToString().ToLower().Contains("safari"))
+                            browserName = "safari.exe";
+                        else if (progIdValue.ToString().ToLower().Contains("opera"))
+                            browserName = "opera.exe";
+                    }
+                }
+            }
+
+            Process.Start(new ProcessStartInfo(browserName, "\"? " + url  + "\""));
+        }
+
+
+
         private async void OnKeyDownHander(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
@@ -150,6 +191,17 @@ namespace OverLayApplicationSearch.WpfApp
                 {
                     processMode = true;
                     ListProcessesInListBox();
+                }
+                else if(this.searchTextBox.Text.Trim().StartsWith("gle", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    processMode = false;
+                    try
+                    {
+                        launchBrowser(this.searchTextBox.Text.Split(' ')[1]);
+                    }
+                    catch(Exception ex)
+                    {
+                    }                  
                 }
                 else
                 {
@@ -189,13 +241,14 @@ namespace OverLayApplicationSearch.WpfApp
         {
             try
             {
-                Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(line);
-                this.resultListBox.Items.Add(new DataInfo()
+                if(line.EndsWith(".exe"))
                 {
-                    Name = Path.GetFileName(line),
-                    Path = line,
-                    ImageSource = ToImageSource(icon)
-                });
+                    this.addListBoxItemFromExePath(line, line);
+                }
+                else
+                {
+                    this.addListBoxItemFromExePath(line, WindowsFileExtension.GetDefaultExecutablePathFromFile(line));
+                }
             }
             catch (Exception exception)
             {
@@ -207,6 +260,18 @@ namespace OverLayApplicationSearch.WpfApp
                     ImageSource = ToImageSource(icon)
                 });
             }
+        }
+
+        private void addListBoxItemFromExePath(string path, string exePath)
+        {
+            Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(exePath);
+            this.resultListBox.Items.Add(new DataInfo()
+            {
+                Name = Path.GetFileName(path),
+                Path = path,
+                ImageSource = ToImageSource(icon),
+                ExecuteAble = exePath
+            });
         }
 
         public static ImageSource ToImageSource(Icon icon)
@@ -250,7 +315,7 @@ namespace OverLayApplicationSearch.WpfApp
             DataInfo dataInfo = this.resultListBox.SelectedItem as DataInfo;
             if (dataInfo != null)
             {
-                OpenPathInExplorer(dataInfo.Path);
+                OpenPathInExplorer(dataInfo.Path, dataInfo.ExecuteAble);
                 if (hideWindow)
                 {
                     this.resultListBox.SelectedIndex = -1;
@@ -260,25 +325,38 @@ namespace OverLayApplicationSearch.WpfApp
             }
         }
 
-        private void StartProcess(string path)
+        private void StartProcess(string executable, string file)
         {
-            Process process = new Process();
-            process.StartInfo.FileName = path;
-            process.Start();
+            if(executable == null || !executable.EndsWith(".exe"))
+            {
+                Process process = new Process();
+                process.StartInfo.FileName = file;
+                process.Start();
+            }
+            else
+            {
+                Process process = new Process();
+                process.StartInfo.Arguments = Path.GetFileName(file);
+                process.StartInfo.UseShellExecute = true;
+                process.StartInfo.WorkingDirectory = Path.GetDirectoryName(file);
+                process.StartInfo.FileName = executable;
+                process.StartInfo.Verb = "OPEN";          
+                process.Start();
+            }   
         }
 
-        private void OpenPathInExplorer(string path)
+        private void OpenPathInExplorer(string path, string executable)
         {
             try
             {
-                StartProcess(path);
+                StartProcess(executable, path);
             }
             catch (Exception e)
             {
                 try
                 {
                     path = new FileInfo(path).Directory.FullName;
-                    StartProcess(path);
+                    StartProcess(null,path);
                 }
                 catch (Exception exception)
                 {
