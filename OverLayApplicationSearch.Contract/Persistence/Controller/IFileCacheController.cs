@@ -28,5 +28,11 @@ namespace OverLayApplicationSearch.Contract.Persistence.Controller
         /// <param name="maxAmount">maxAmount of returned items</param>
         /// <returns>items</returns>
         List<string> Search(string searchText, int maxAmount);
+
+        /// <summary>
+        /// Gets called when an item in the user file system changes.
+        /// </summary>
+        /// <param name="info">info</param>
+        void OnFileSystemChange(object info);
     }
 }

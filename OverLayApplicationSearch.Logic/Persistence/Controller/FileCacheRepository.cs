@@ -8,6 +8,9 @@ using OverLayApplicationSearch.Contract.Persistence.Controller;
 using OverLayApplicationSearch.Contract.Persistence.Entity;
 using OverLayApplicationSearch.Logic.Business.Entity;
 using OverLayApplicationSearch.Logic.Persistence.Entity;
+using OverLayApplicationSearch.Logic.Lib;
+using static OverLayApplicationSearch.Logic.Lib.ShellNotifications;
+using System.IO;
 
 namespace OverLayApplicationSearch.Logic.Persistence.Controller
 {
@@ -26,6 +29,50 @@ namespace OverLayApplicationSearch.Logic.Persistence.Controller
             this.connectionContext = connectionContext;
             this.connection = connectionContext.Connection;
             this.database = database;
+        }
+
+
+        public void OnFileSystemChange(object info)
+        {           
+            NotifyInfos data = (NotifyInfos) info;            
+            if (data.Notification.Equals(SHCNE.SHCNE_RENAMEITEM))
+            {
+                var result = searchExact(data.Item1, Path.GetFileName(data.Item1));
+                long id;
+                if(result.TryGetValue(Path.GetFileName(data.Item1), out id))
+                {
+                    IFileCache cache = this.GetById(id);
+                    cache.FileName = Path.GetFileName(data.Item2);
+                    this.Update(cache);
+                }
+            }
+            else if (data.Notification.Equals(SHCNE.SHCNE_DELETE))
+            {
+                var result = searchExact(data.Item1, Path.GetFileName(data.Item1));
+                long id;
+                if (result.TryGetValue(Path.GetFileName(data.Item1), out id))
+                {
+                    IFileCache cache = this.GetById(id);
+                    this.Delete(cache);
+                }
+            }
+            else if(data.Notification.Equals(SHCNE.SHCNE_CREATE))
+            {
+                string[] parts = data.Item1.Split('\\');
+
+                var result = searchExact(Path.GetDirectoryName(data.Item1), Path.GetFileName(Path.GetDirectoryName(data.Item1)));
+
+                long id;
+                if (result.TryGetValue(Path.GetFileName(Path.GetDirectoryName(data.Item1)), out id))
+                {
+                    IFileCache directory = this.GetById(id);
+                    IFileCache child = this.Create();
+                    child.ParentId = directory.Id;
+                    child.TimeTaskId = directory.TimeTaskId;
+                    child.FileName = Path.GetFileName(data.Item1);
+                    this.Store(child);
+                }
+            }
         }
 
 
@@ -127,7 +174,7 @@ namespace OverLayApplicationSearch.Logic.Persistence.Controller
         /// <param name="item">item</param>
         protected override void Insert(IFileCache item)
         {
-            var id = connectionContext.executeInsert($"INSERT INTO AM.SHY_FILECACHE(name, parent_id, timetask_id) VALUES (@param0, @param1, @param2);", connection,
+            var id = connectionContext.ExecuteStoredInsert($"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.insert.sql", connection,
                 new object[] {item.FileName, item.ParentId, item.TimeTaskId});
             ((FileCache) item).Id = id;
         }
@@ -196,6 +243,36 @@ namespace OverLayApplicationSearch.Logic.Persistence.Controller
             }
             return result;
         }
+
+        private Dictionary<string, long> searchExact(string path, string name)
+        {
+            Dictionary<string, long> result = new Dictionary<string, long>();
+            using (var command =
+                connectionContext.ExecuteStoredQuery($"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.exactsearch.sql",
+                    connection))
+            {
+                command.CommandText = command.CommandText.Replace("KEY", name);
+                command.CommandText = command.CommandText.Replace("PATH", path.Replace('\\', '/'));
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string cname = reader["name"] as string;
+                        string cid = reader["ID"] as string;
+
+                        string[] parts1 = cname.Split('/');
+                        string[] parts2 = cid.Split('/');
+                        
+                        for(int i = 0; i< parts1.Length; i++)
+                        {
+                            result.Add(parts1[i], Convert.ToInt32(parts2[i]));
+                        }
+                    }
+                    return result;
+                }
+            }   
+        }
+
 
         /// <inheritdoc />
         /// <summary>

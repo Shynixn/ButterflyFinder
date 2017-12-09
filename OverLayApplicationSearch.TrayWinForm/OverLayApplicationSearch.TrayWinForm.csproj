@@ -105,6 +105,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OverLayApplicationSearch.Contract\OverLayApplicationSearch.Contract.csproj">
+      <Project>{0249A11B-7451-428E-8C74-0266F665A6F3}</Project>
+      <Name>OverLayApplicationSearch.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OverLayApplicationSearch.Logic\OverLayApplicationSearch.Logic.csproj">
+      <Project>{ADE75866-B4BE-40A7-A15F-FD56604DF2D0}</Project>
+      <Name>OverLayApplicationSearch.Logic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OverLayApplicationSearch.Updater\OverLayApplicationSearch.Updater.csproj">
       <Project>{c5eb18c5-18ad-498b-8813-c45a9b05f25e}</Project>
       <Name>OverLayApplicationSearch.Updater</Name>
