@@ -571,7 +571,7 @@ namespace OverLayApplicationSearch.Logic.Lib
             info.Item2 = GetPathFromPidl(shNotify.dwItem2);
 
             // Was this notification in the received notifications ?
-            if (NotificationsReceived.Contains(info)) return (false);
+          //  if (NotificationsReceived.Contains(info)) return (false);
             NotificationsReceived.Add(info);
             return (true);
             //DisplayName1 = GetDisplayNameFromPidl(shNotify.dwItem1);
