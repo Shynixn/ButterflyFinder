@@ -43,12 +43,16 @@ namespace OverLayApplicationSearch.WpfApp
             Factory.ReInitializeContext();
             this.PreviewKeyDown += new System.Windows.Input.KeyEventHandler(HandleEsc);
 
-      
-
-
+            var dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
         }
 
-
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            this.clockLabel.Content = DateTime.Now.ToString("HH:mm");
+        }
 
         /// <summary>
         /// Handles pressing on the escape button and proceeds the window to state 2.

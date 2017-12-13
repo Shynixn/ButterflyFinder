@@ -24,14 +24,20 @@
         </Grid.RowDefinitions>
 
         
-        <StackPanel  Name="titlePanel"  Background="#6a00ff" Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="3" Opacity="0.5">
+        <DockPanel  Name="titlePanel"  Background="#6a00ff" Grid.Column="0" Grid.ColumnSpan="3" Opacity="0.5">
             <Viewbox>
                 <Label VerticalContentAlignment="Stretch" FontFamily="Segoe UI Light"
                        Foreground="White">
                     Result...
                 </Label>
             </Viewbox>
-        </StackPanel>
+            <Viewbox HorizontalAlignment="Right">
+                <Label VerticalContentAlignment="Stretch" FontFamily="Segoe UI Light"
+                       Foreground="White" Name="clockLabel">
+                    00:00
+                </Label>
+            </Viewbox>
+        </DockPanel>
 
         <ListBox Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="3" Name="resultListBox"
                  ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" Opacity="0.5" KeyDown="onListBoxKeyEnterPressed" MouseDown="onMouseDownEventListbox"  MouseDoubleClick="onListBoxDoubleClickItem">/>
