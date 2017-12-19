@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using OverLayApplicationSearch.Logic;
 using OverLayApplicationSearch.WpfApp.Pages;
+using OverLayApplicationSearch.Contract.Persistence.Entity;
+using OverLayApplicationSearch.Contract.Persistence.Enumeration;
 
 namespace OverLayApplicationSearch.WpfApp
 {
@@ -30,21 +32,7 @@ namespace OverLayApplicationSearch.WpfApp
 
         private async void buttonAddFolderNext_Click(object sender, RoutedEventArgs e)
         {
-            string text = (string)this.textBoxAddFolderFolderSelect.Text;
-            bool duplicate = await DuplicateFolderTask(text);
-            if (duplicate)
-            {
-                this.labelAddFolderMessage.Content = "There is already a configured task with this path!";
-            }
-            else if (String.IsNullOrEmpty(SelectedFolder))
-            {
-                this.labelAddFolderMessage.Content = "Please select a valid folder or drive!";
-            }
-            else
-            {
-                this.labelAddFolderMessage.Content = "";
-                ParentWindow.Next();
-            }
+          
         }
 
         private void buttonAddFolderFolderSelect_Click(object sender, RoutedEventArgs e)
@@ -97,6 +85,48 @@ namespace OverLayApplicationSearch.WpfApp
                                    StringComparison.InvariantCultureIgnoreCase)) != null;
                 }
             });
+        }
+
+        private string ChosenFolder { get; set; }
+
+        private Task<IConfiguredTask> StoreNewTask()
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                using (var controller = Factory.CreateConfiguredTaskController())
+                {
+                    IConfiguredTask task = controller.Create();
+                    task.Path = ChosenFolder;
+                    task.TimeScheduled = TimeSchedule.NEVER;
+                    controller.Store(task);
+                    return task;
+                }
+            });
+        }
+
+        private async void buttonCreateTask_Click(object sender, RoutedEventArgs e)
+        {
+            string text = (string)this.textBoxAddFolderFolderSelect.Text;
+            bool duplicate = await DuplicateFolderTask(text);
+            if (duplicate)
+            {
+                this.labelAddFolderMessage.Content = "There is already a configured task with this path!";
+                return;
+            }
+            else if (String.IsNullOrEmpty(SelectedFolder))
+            {
+                this.labelAddFolderMessage.Content = "Please select a valid folder or drive!";
+                return;
+            }
+            else
+            {
+                this.labelAddFolderMessage.Content = "";
+            }
+            ChosenFolder = this.SelectedFolder;
+            IConfiguredTask task = await StoreNewTask();
+            ParentWindow.Scan(task);
+            ((ControlWindow)ParentWindow).PrepareForScan = true;
+            ParentWindow.Next();
         }
     }
 }

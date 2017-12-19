@@ -1,5 +1,6 @@
 ﻿namespace OverLayApplicationSearch.Contract.Persistence.Enumeration
 {
+    [System.Obsolete]
     public class TimeSchedule
     {
         public const string HOURS_12 = "12 Hours";

@@ -42,7 +42,6 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Column="0" Content="{Binding Path}" FontSize="18" VerticalContentAlignment="Center" FontFamily="Segoe UI Light" Name="labelPath" HorizontalContentAlignment="Stretch"/>
-                        <Label  Grid.Column="1" Name="labelTimeSchedule" FontFamily="Segoe UI Light" FontSize="15" Content="{Binding TimeSchedule}" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch"/>
                         <Label Grid.Column="2" Name="labelLastTimeScheduled"  FontFamily="Segoe UI Light" FontSize="15" Content="{Binding LastTime}" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch"/>
                         <DockPanel Grid.Column="3">
                             <Button Name="buttonlistboxsync"  Padding="10" HorizontalAlignment="Left" VerticalAlignment="Top" 

@@ -27,13 +27,15 @@
 
         <DockPanel Grid.Column="0" Grid.Row="2">
             <Button Name="buttonAddFolderNext"  Padding="10" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                    Content="CONTINUE" Height="40" Background="#1ba1e2" Foreground="White" BorderThickness="0" Margin="5" Click="buttonAddFolderNext_Click"/>
+                    Content="CREATE AND FINISH" Height="40" Background="#1ba1e2" Foreground="White" BorderThickness="0" Margin="5" Click="buttonCreateTask_Click"/>
             <Button Name="buttonCreateTaskBack"  Padding="10" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5"
                     Content="CANCEL" Height="40" Background="Transparent" Foreground="Gray" BorderThickness="0" Click="buttonAddFolderBack_Click" />
             <Label Name="labelAddFolderMessage" FontFamily="Segoe UI Light" Foreground="Red"></Label>
         </DockPanel>
 
         <DockPanel Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center">
+            <Separator Margin="5,0,5,0" HorizontalAlignment="Left" Width="100" />
+            <Grid Margin="20,5,7,5" HorizontalAlignment="Left"/>
             <Grid Margin="20,5,7,5" HorizontalAlignment="Left">
                 <Ellipse Fill="#1ba1e2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="22" Height="22" />
                 <Label Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"
@@ -41,25 +43,10 @@
                     1
                 </Label>
             </Grid>
-            <Label HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12">Add folder</Label>
+            <Label HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Foreground="Gray">Create Task</Label>
+            <Grid Margin="20,5,7,5" HorizontalAlignment="Left"/>
             <Separator Margin="5,0,5,0" HorizontalAlignment="Left" Width="100" />
-            <Grid Margin="20,5,7,5" HorizontalAlignment="Left">
-                <Ellipse Fill="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" Width="22" Height="22" />
-                <Label Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"
-                       Margin="0,1,2,1">
-                    2
-                </Label>
-            </Grid>
-            <Label HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Foreground="Gray">Select time schedule</Label>
-            <Separator Margin="5,0,5,0" HorizontalAlignment="Left" Width="100" />
-            <Grid Margin="20,5,7,5" HorizontalAlignment="Left">
-                <Ellipse Fill="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" Width="22" Height="22" />
-                <Label Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"
-                       Margin="0,1,2,1">
-                    3
-                </Label>
-            </Grid>
-            <Label Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12">Add to list</Label>
+
         </DockPanel>
 
     </Grid>

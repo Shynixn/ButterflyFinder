@@ -29,7 +29,6 @@ namespace OverLayApplicationSearch.WpfApp
         private bool destroyed;
 
         private string selectedPath = "";
-        private string selectedTimeSchedule = TimeSchedule.DAILY;
 
         public bool PrepareForScan { get; set; }
 
@@ -37,46 +36,11 @@ namespace OverLayApplicationSearch.WpfApp
         {
             InitializeComponent();
             Factory.ReInitializeContext();
-            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(1, 0, 0);
-            dispatcherTimer.Start();
-            this.dispatcherTimer_Tick(null, null);
         }
 
         private void onWindowLoaded(object sender, RoutedEventArgs e)
         {
             SelectPage(new ListItemsPage());
-        }
-
-        private async void dispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            var tasks = await LoadTasksFromDatabaseDatabase();
-            foreach (var task in tasks)
-            {
-                var span = DateTime.Now - task.LastTimeIndexed;
-                if ((task.TimeScheduled == TimeSchedule.HOURS_12 && span.Hours >= 12) 
-                    || (task.TimeScheduled == TimeSchedule.DAILY && span.Days >= 1)
-                    || (task.TimeScheduled == TimeSchedule.WEEKLY && span.Days >= 7)
-                    || (task.TimeScheduled == TimeSchedule.MONTHLY && span.Days >= 30)
-                    || (task.LastTimeIndexed == default(DateTime))
-                    )
-                {
-                    if (this.RunningTask != null)
-                        return;
-                    if (this.currentPage is ListItemsPage)
-                    {
-                        ((ListItemsPage)currentPage).ScanMode = true;
-                    }
-                    this.RunningTask = task;
-                    await SyncCurrenTask();
-                    this.RunningTask = null;
-                    if (this.currentPage is ListItemsPage)
-                    {
-                        ((ListItemsPage)currentPage).ScanMode = false;
-                    }
-                }
-            }
         }
 
         public void Destroy()
@@ -128,19 +92,14 @@ namespace OverLayApplicationSearch.WpfApp
 
         public void Back()
         {
-            if (this.currentPage is SelectSchedulePage)
+            if (this.currentPage is CreateTaskPage)
             {
-                SelectPage(new AddWatchFolderPage() {SelectedFolder = selectedPath});
-            }
-            else if (this.currentPage is CreateTaskPage)
-            {
-                SelectPage(new SelectSchedulePage() { SelectedTimeSchedule = this.selectedTimeSchedule });
+                SelectPage(new AddWatchFolderPage() { SelectedFolder = selectedPath });
             }
             else if (this.currentPage is AddWatchFolderPage)
             {
                 SelectPage(new ListItemsPage());
                 this.selectedPath = "";
-                this.selectedTimeSchedule = TimeSchedule.DAILY;
             }
         }
 
@@ -152,19 +111,7 @@ namespace OverLayApplicationSearch.WpfApp
             }
             else if (this.currentPage is AddWatchFolderPage)
             {
-                this.selectedPath = ((AddWatchFolderPage) this.currentPage).SelectedFolder;
-                SelectPage(new SelectSchedulePage() {SelectedTimeSchedule = this.selectedTimeSchedule});
-            }
-            else if (this.currentPage is SelectSchedulePage)
-            {
-                this.selectedTimeSchedule = ((SelectSchedulePage)this.currentPage).SelectedTimeSchedule;
-                SelectPage(new CreateTaskPage() {TaskPath = selectedPath, TaskTimeSchedule =  selectedTimeSchedule});
-            }
-            else if (this.currentPage is CreateTaskPage)
-            {
                 SelectPage(new ListItemsPage());
-                this.selectedPath = "";
-                this.selectedTimeSchedule = TimeSchedule.DAILY;
             }
         }
 
@@ -222,8 +169,5 @@ namespace OverLayApplicationSearch.WpfApp
                 Scanner = null;
             });        
         }
-
-
-        
     }
 }
