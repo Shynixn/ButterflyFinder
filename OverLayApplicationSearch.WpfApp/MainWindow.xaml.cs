@@ -199,6 +199,7 @@ namespace OverLayApplicationSearch.WpfApp
                 else if(this.searchTextBox.Text.Trim().StartsWith("gle", StringComparison.InvariantCultureIgnoreCase))
                 {
                     processMode = false;
+                    SetSearchWindowState(SearchWindowState.HIDDEN);
                     try
                     {
                         launchBrowser(this.searchTextBox.Text.Split(' ')[1]);

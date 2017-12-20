@@ -20,7 +20,7 @@
             <RowDefinition Height="5*" />
             <RowDefinition Height="5*" />
             <RowDefinition Height="5*" />
-            <RowDefinition Height="5*" />
+            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
 
         
@@ -58,18 +58,14 @@
             <Label FontFamily="Segoe UI Light" Name="noResultsLabel">No Results</Label>
          </Viewbox>
 
-            <Viewbox Name="forgroundSearchBox" Stretch="Uniform" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
-                 >
+        <Viewbox Name="forgroundSearchBox" Stretch="Uniform" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" >
             <StackPanel Orientation="Vertical">
-
                 <StackPanel Height="50" Background="#1ba1e2" Orientation="Horizontal">
                     <Label Height="50" VerticalContentAlignment="Center" FontFamily="Segoe UI Light" FontSize="30"
                            Foreground="White">
                         Search...
                     </Label>
                 </StackPanel>
-
-
                 <StackPanel
                     Orientation="Horizontal" Background="White">
 
@@ -80,9 +76,28 @@
                     <TextBox IsEnabled="False" Text="                                                      "
                              BorderThickness="0" Background="White" />
                 </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
+                    <Label Height="50" VerticalContentAlignment="Center" FontFamily="Segoe UI Light" FontSize="30">
+                        Press me ↓ to open the task page
+                    </Label>
+                </StackPanel>
             </StackPanel>
         </Viewbox>
 
-
+        <DockPanel Margin="0,0,0,0"  Name="titlePanel1"  Background="#6a00ff" Grid.Column="0"  Grid.Row="4" Grid.ColumnSpan="3" Opacity="0.5">
+            <Viewbox HorizontalAlignment="Left">
+                <DockPanel Background="#1ba1e2" Cursor="Hand">
+                    <Label VerticalContentAlignment="Stretch" FontFamily="Segoe UI Light" Foreground="White">
+                        Task Killer
+                    </Label>
+                </DockPanel>
+            </Viewbox>
+            <Viewbox HorizontalAlignment="Right">
+                <Label VerticalContentAlignment="Stretch" FontFamily="Segoe UI Light"
+                       Foreground="White" Name="clockLabel1">
+                    00:00
+                </Label>
+            </Viewbox>
+        </DockPanel>
     </Grid>
 </Window>
