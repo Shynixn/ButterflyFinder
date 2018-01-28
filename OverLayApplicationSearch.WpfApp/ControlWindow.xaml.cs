@@ -17,6 +17,8 @@ using OverLayApplicationSearch.Contract.Persistence.Entity;
 using OverLayApplicationSearch.Contract.Persistence.Enumeration;
 using OverLayApplicationSearch.Logic;
 using OverLayApplicationSearch.WpfApp.Pages;
+using System.Security;
+using OverLayApplicationSearch.WpfApp.Contracts;
 
 namespace OverLayApplicationSearch.WpfApp
 {
@@ -41,6 +43,28 @@ namespace OverLayApplicationSearch.WpfApp
         private void onWindowLoaded(object sender, RoutedEventArgs e)
         {
             SelectPage(new ListItemsPage());
+
+       /*     using (var controller = Factory.CreatePasswordController())
+            {
+                SecureString text = controller.GeneratePassword();
+
+                IPa pa = controller.Create();
+                pa.PassWord = text;
+
+                controller.Store(pa);
+
+
+
+            }
+
+            using (var controller = Factory.CreatePasswordController())
+            {
+                List<IPa> pas = controller.GetAll();
+
+
+
+            }
+            */
         }
 
         public void Destroy()

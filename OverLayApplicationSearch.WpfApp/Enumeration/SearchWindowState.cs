@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OverLayApplicationSearch.WpfApp
+﻿namespace OverLayApplicationSearch.WpfApp.Enumeration
 {
     /// <summary>
     /// Internal state of the search tool window.
@@ -13,6 +7,10 @@ namespace OverLayApplicationSearch.WpfApp
     {
         SEARCHBOX,
         SEARCHRESULTS,
+        SEARCHINGRESULTS,
+        TASKKILLER,
+        GOOGLESEARCH,
+        TASKBAR,
         HIDDEN        
     }
 }

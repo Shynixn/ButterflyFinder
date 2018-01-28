@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,12 +42,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\Entity\IScanner.cs" />
+    <Compile Include="Business\Entity\IViewModel.cs" />
+    <Compile Include="Business\Service\IGoogleService.cs" />
+    <Compile Include="Business\Service\IListService.cs" />
+    <Compile Include="Business\Service\ISearchService.cs" />
+    <Compile Include="Business\Service\IService.cs" />
     <Compile Include="Persistence\Controller\IConfiguredTaskController.cs" />
     <Compile Include="Persistence\Controller\IController.cs" />
     <Compile Include="Persistence\Controller\IDatabaseController.cs" />
     <Compile Include="Persistence\Controller\IFileCacheController.cs" />
+    <Compile Include="Persistence\Controller\IPasswordController.cs" />
     <Compile Include="Persistence\Entity\IConfiguredTask.cs" />
     <Compile Include="Persistence\Entity\IFileCache.cs" />
+    <Compile Include="Persistence\Entity\IPa.cs" />
     <Compile Include="Persistence\Entity\IPersistenceable.cs" />
     <Compile Include="Persistence\Enumeration\TimeSchedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

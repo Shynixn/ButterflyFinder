@@ -21,6 +21,7 @@ using OverLayApplicationSearch.Contract.Persistence.Controller;
 using OverLayApplicationSearch.Contract.Persistence.Entity;
 using OverLayApplicationSearch.Contract.Persistence.Enumeration;
 using OverLayApplicationSearch.Logic;
+using OverLayApplicationSearch.WpfApp.Contracts;
 using OverLayApplicationSearch.WpfApp.Models;
 using MessageBox = System.Windows.MessageBox;
 using UserControl = System.Windows.Controls.UserControl;
@@ -32,8 +33,6 @@ namespace OverLayApplicationSearch.WpfApp.Pages
     /// </summary>
     public partial class ListItemsPage : UserControl
     {
-        private bool _scanmode;
-
         public ListItemsPage()
         {
             InitializeComponent();
@@ -77,7 +76,7 @@ namespace OverLayApplicationSearch.WpfApp.Pages
 
         public bool ScanMode
         {
-            get { return _scanmode; }
+            get { return false; }
             set
             {
                 this.listBoxTasks.IsEnabled = !value;

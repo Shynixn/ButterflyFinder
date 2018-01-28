@@ -140,11 +140,10 @@ namespace OverLayApplicationSearch.TrayWinForm
                         controller.OnFileSystemChange(info);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception)
                 {
-
+                    // ignored
                 }
-              
             });
         }
 

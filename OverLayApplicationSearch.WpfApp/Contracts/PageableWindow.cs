@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OverLayApplicationSearch.Contract.Business.Entity;
+﻿using OverLayApplicationSearch.Contract.Business.Entity;
 using OverLayApplicationSearch.Contract.Persistence.Entity;
 
-namespace OverLayApplicationSearch.WpfApp.Pages
+namespace OverLayApplicationSearch.WpfApp.Contracts
 {
-    public interface PageableWindow
+    internal interface PageableWindow
     {
         /// <summary>
         /// Moves a page back
