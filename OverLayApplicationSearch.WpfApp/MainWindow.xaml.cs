@@ -23,7 +23,7 @@ namespace OverLayApplicationSearch.WpfApp
         private bool fallback;
         private bool ignoreSwitch;
 
-        private readonly IListService taskKillerService = new TaskKillerService();
+        private readonly IListService taskKillerService = new TaskKillerService(Properties.Resources.nodatafound);
         private readonly IGoogleService googleService = new GoogleService();
         private readonly ISearchService searchService = new SearchService(Properties.Resources.folder);
     
@@ -47,6 +47,8 @@ namespace OverLayApplicationSearch.WpfApp
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
+
+            this.WindowState = WindowState.Maximized;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -85,6 +87,7 @@ namespace OverLayApplicationSearch.WpfApp
             {
                 if (TaskBarElement == 0)
                 {
+                    this.ignoreSwitch = true;
                     SetSearchWindowState(SearchWindowState.TASKKILLER);
                 }
             }
@@ -144,13 +147,16 @@ namespace OverLayApplicationSearch.WpfApp
             }
             else if (state == SearchWindowState.SEARCHINGRESULTS)
             {
+                SetSearchWindowState(SearchWindowState.SEARCHRESULTS);
                 resultListBox.Focus();
                 resultListBox.SelectedIndex = 0;
+                fallback = true;
                 messageBox.Visibility = Visibility;
                 noResultsLabel.Content = "Searching...";
                 await searchService.Search(searchTextBox.Text);
                 if (searchService.Count == 0)
                 {
+                    resultListBox.Items.Clear();
                     noResultsLabel.Content = "No Results";
                 }
                 else
@@ -195,7 +201,10 @@ namespace OverLayApplicationSearch.WpfApp
             for (var i = 0; i < service.Count; i++)
             {
                 var dataInfo = new ListItemViewer();
-                service.InitModel(i, dataInfo);
+                if (service.InitModel(i, dataInfo))
+                {
+                    this.resultListBox.Items.Add(dataInfo);
+                }
             }
             resultListBox.UpdateLayout();
             var listBoxItem = (ListBoxItem)resultListBox.ItemContainerGenerator.ContainerFromItem(resultListBox.SelectedItem);

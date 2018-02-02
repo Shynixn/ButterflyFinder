@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,15 +13,28 @@ namespace OverLayApplicationSearch.Logic.Business.Service
 {
     public class TaskKillerService : IListService
     {
+
+        private string[] taskCache;
+        private Icon fallBackIcon;
+
+        public TaskKillerService(Icon fallBackIcon)
+        {
+            this.fallBackIcon = fallBackIcon;
+        }
+
         /// <inheritdoc />
         /// <summary>
         ///  Initializes a single viewModel by the item in the position.
         /// </summary>
         /// <param name="position">Position</param>
         /// <param name="viewModel">Model</param>
-        public void InitModel(int position, IViewModel viewModel)
+        public bool InitModel(int position, IViewModel viewModel)
         {
-            var line = TaskManager.Tasks[position];
+            if (position == 0)
+            {
+                taskCache = TaskManager.Tasks;
+            }
+            var line = taskCache[position];
             if (line != null)
             {
                 viewModel.Text = Path.GetFileName(line);
@@ -31,9 +45,11 @@ namespace OverLayApplicationSearch.Logic.Business.Service
                 }
                 catch (Exception)
                 {
-                    // ignored
+                    viewModel.Icon = fallBackIcon.GenerateImageSource();
                 }
-            }          
+                return true;
+            }
+            return false;
         }
 
         /// <inheritdoc />

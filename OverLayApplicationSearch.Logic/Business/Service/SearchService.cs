@@ -29,7 +29,7 @@ namespace OverLayApplicationSearch.Logic.Business.Service
         /// </summary>
         /// <param name="position">Position</param>
         /// <param name="viewModel">Model</param>
-        public void InitModel(int position, IViewModel viewModel)
+        public bool InitModel(int position, IViewModel viewModel)
         {
             var line = this.result[position];
             try
@@ -43,6 +43,7 @@ namespace OverLayApplicationSearch.Logic.Business.Service
                 viewModel.Header = line;
                 viewModel.Icon = fallBackIcon.GenerateImageSource();
             }
+            return true;
         }
 
         /// <inheritdoc />

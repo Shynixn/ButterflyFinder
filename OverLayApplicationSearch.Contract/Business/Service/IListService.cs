@@ -14,7 +14,7 @@ namespace OverLayApplicationSearch.Contract.Business.Service
         /// </summary>
         /// <param name="position">Position</param>
         /// <param name="viewModel">Model</param>
-        void InitModel(int position, IViewModel viewModel);
+        bool InitModel(int position, IViewModel viewModel);
 
         /// <summary>
         /// Handles an action when an viewModel item is pressed or clicked.

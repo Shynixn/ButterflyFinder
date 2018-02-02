@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:OverLayApplicationSearch.WpfApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525" WindowStyle="None" ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen" AllowsTransparency="True" Background="Transparent" >
+        WindowStartupLocation="CenterScreen" AllowsTransparency="True" Background="Transparent">
 
 
     <Grid Loaded="OnLoaded">
@@ -44,15 +44,16 @@
                  KeyDown="onListBoxKeyEnterPressed" MouseDown="onMouseDownEventListbox"
                  MouseDoubleClick="onListBoxDoubleClickItem">
             />
+            
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <Image HorizontalAlignment="Left" VerticalAlignment="Stretch" Name="iconImage"
-                               Source="{Binding ImageSource}" Margin="50,0,75,0" />
+                               Source="{Binding Icon}" Margin="50,0,75,0" />
                         <StackPanel Orientation="Vertical">
-                            <Label Name="pathLabel" FontSize="15" Content="{Binding Path}"
+                            <Label Name="pathLabel" FontSize="15" Content="{Binding Header}"
                                    HorizontalContentAlignment="Stretch" />
-                            <Label Name="nameLabel" FontSize="25" Content="{Binding Name}"
+                            <Label Name="nameLabel" FontSize="25" Content="{Binding Text}"
                                    HorizontalContentAlignment="Stretch" />
                         </StackPanel>
                     </StackPanel>
