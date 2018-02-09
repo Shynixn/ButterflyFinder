@@ -58,9 +58,10 @@ namespace OverLayApplicationSearch.Logic.Business.Service
         /// </summary>
         /// <param name="position">position</param>
         /// <param name="viewModel">viewModel</param>
-        public void OnAction(int position, IViewModel viewModel)
+        public int OnAction(int position, IViewModel viewModel)
         {
             TaskManager.Kill(viewModel.Header);
+            return 1;
         }
 
         /// <inheritdoc />

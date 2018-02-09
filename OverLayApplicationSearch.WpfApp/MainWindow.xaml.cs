@@ -48,7 +48,7 @@ namespace OverLayApplicationSearch.WpfApp
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
 
-            this.WindowState = WindowState.Maximized;
+           this.WindowState = WindowState.Maximized;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -153,6 +153,7 @@ namespace OverLayApplicationSearch.WpfApp
                 fallback = true;
                 messageBox.Visibility = Visibility;
                 noResultsLabel.Content = "Searching...";
+                this.resultListBox.Items.Clear();
                 await searchService.Search(searchTextBox.Text);
                 if (searchService.Count == 0)
                 {
@@ -215,19 +216,28 @@ namespace OverLayApplicationSearch.WpfApp
         {
             if (CurrentState == SearchWindowState.TASKKILLER)
             {
-                ExecuteListItemAction(taskKillerService, true);
+                ExecuteListItemAction(taskKillerService);
+            }
+            if (CurrentState == SearchWindowState.SEARCHINGRESULTS)
+            {
+                ExecuteListItemAction(this.searchService);
             }
         }
 
-        private void ExecuteListItemAction(IListService service, bool reload)
+        private void ExecuteListItemAction(IListService service)
         {
             var dataInfo = resultListBox.SelectedItem as ListItemViewer;
             var index = resultListBox.SelectedIndex;
             if (dataInfo == null) return;
-            service.OnAction(index, dataInfo);
-            if (reload)
+            this.resultListBox.Items.Clear();
+            int result = service.OnAction(index, dataInfo);
+            if (result == 1)
             {
                 RenderItemsIntoListBox(service);
+            }
+            else if (result == 2)
+            {
+                SetSearchWindowState(SearchWindowState.HIDDEN);
             }
         }
 
@@ -286,10 +296,5 @@ namespace OverLayApplicationSearch.WpfApp
         }
 
         #endregion
-
-        private void onMouseDownEventListbox(object sender, MouseButtonEventArgs e)
-        {
-           
-        }
     }
 }

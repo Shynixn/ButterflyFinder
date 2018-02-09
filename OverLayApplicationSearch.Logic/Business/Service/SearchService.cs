@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using OverLayApplicationSearch.Contract.Business.Entity;
 using OverLayApplicationSearch.Contract.Business.Service;
 using System.IO;
+using System.Windows.Forms;
 using OverLayApplicationSearch.Logic.Lib;
 
 namespace OverLayApplicationSearch.Logic.Business.Service
@@ -52,22 +53,27 @@ namespace OverLayApplicationSearch.Logic.Business.Service
         /// </summary>
         /// <param name="position">position</param>
         /// <param name="viewModel">viewModel</param>
-        public void OnAction(int position, IViewModel viewModel)
+        public int OnAction(int position, IViewModel viewModel)
         {
             try
             {
                 ProcessExtension.LaunchProcess(viewModel.Header, viewModel.Cache as string);
+                return 2;
             }
             catch (Exception)
             {
                 try
                 {
+
                     var path = new FileInfo(viewModel.Header).Directory?.FullName;
                     ProcessExtension.LaunchProcess(path, null);
+                    return 2;
                 }
                 catch (Exception)
                 {
-                    // ignored
+                    DeleteItem(viewModel.Header);
+                    result.Remove(viewModel.Header);
+                    return 1;
                 }
             }
         }
@@ -94,6 +100,17 @@ namespace OverLayApplicationSearch.Logic.Business.Service
             model.Header = path;
             model.Icon = exePath.GenerateImageSource();
             model.Cache = exePath;
+        }
+
+        private static async void DeleteItem(string path)
+        {
+            await Task.Factory.StartNew(() =>
+            {
+                using (var controller = Factory.CreateFilecacheController())
+                {
+                    controller.DeleteByPath(path);
+                }
+            });
         }
 
         private static Task<List<string>> SearchTask(string searchText)

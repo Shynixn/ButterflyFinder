@@ -41,7 +41,7 @@
 
         <ListBox Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="3" Name="resultListBox"
                  ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" Opacity="0.5"
-                 KeyDown="onListBoxKeyEnterPressed" MouseDown="onMouseDownEventListbox"
+                 KeyDown="onListBoxKeyEnterPressed" 
                  MouseDoubleClick="onListBoxDoubleClickItem">
             />
             

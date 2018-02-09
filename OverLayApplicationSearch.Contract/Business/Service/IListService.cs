@@ -21,7 +21,7 @@ namespace OverLayApplicationSearch.Contract.Business.Service
         /// </summary>
         /// <param name="position">position</param>
         /// <param name="viewModel">viewModel</param>
-        void OnAction(int position, IViewModel viewModel);
+        int OnAction(int position, IViewModel viewModel);
 
         /// <summary>
         /// Returns the amount of items.
