@@ -210,7 +210,7 @@ namespace OverLayApplicationSearch.WpfApp
             resultListBox.UpdateLayout();
             var listBoxItem = (ListBoxItem)resultListBox.ItemContainerGenerator.ContainerFromItem(resultListBox.SelectedItem);
             listBoxItem?.Focus();
-        }
+        }//
 
         private void ExecuteListItemAction()
         {
