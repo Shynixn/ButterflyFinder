@@ -10,6 +10,7 @@ using OverLayApplicationSearch.Contract.Persistence.Controller;
 using OverLayApplicationSearch.Contract.Persistence.Entity;
 using OverLayApplicationSearch.Logic.Business.Entity;
 using OverLayApplicationSearch.Logic.Persistence.Controller;
+using System.Security;
 
 namespace OverLayApplicationSearch.Logic
 {
@@ -55,6 +56,15 @@ namespace OverLayApplicationSearch.Logic
         public static IConfiguredTaskController CreateConfiguredTaskController()
         {
             return new ConfiguredTaskRepository(connectionContext);
+        }
+
+        /// <summary>
+        /// Generates a new password Controller.
+        /// </summary>
+        /// <returns></returns>
+        public static IPasswordController CreatePasswordController(SecureString masterPassword)
+        {
+            return new PaRepository(masterPassword, connectionContext);
         }
 
         /// <summary>

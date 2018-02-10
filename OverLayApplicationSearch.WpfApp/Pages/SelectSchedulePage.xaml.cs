@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using OverLayApplicationSearch.Contract.Persistence.Enumeration;
 using OverLayApplicationSearch.Logic;
+using OverLayApplicationSearch.WpfApp.Contracts;
+using static OverLayApplicationSearch.Contract.Persistence.Enumeration.TimeSchedule;
 
 namespace OverLayApplicationSearch.WpfApp.Pages
 {
@@ -16,7 +17,7 @@ namespace OverLayApplicationSearch.WpfApp.Pages
         {
             InitializeComponent();
             comboBoxScheduleTimes.SelectedIndex = 1;
-            foreach (var timeSchedule in TimeSchedule.TimeSchedules)
+            foreach (var timeSchedule in TimeSchedules)
             {
                 comboBoxScheduleTimes.Items.Add(timeSchedule);
             }
@@ -56,7 +57,7 @@ namespace OverLayApplicationSearch.WpfApp.Pages
             ParentWindow.Back();
         }
 
-        public PageableWindow ParentWindow
+        internal PageableWindow ParentWindow
         {
             get
             {

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OverLayApplicationSearch.Contract.Persistence.Entity;
 using OverLayApplicationSearch.Logic;
+using OverLayApplicationSearch.WpfApp.Contracts;
 
 namespace OverLayApplicationSearch.WpfApp.Pages
 {
@@ -71,7 +72,7 @@ namespace OverLayApplicationSearch.WpfApp.Pages
             });
         }
 
-        public PageableWindow ParentWindow
+        internal PageableWindow ParentWindow
         {
             get
             {

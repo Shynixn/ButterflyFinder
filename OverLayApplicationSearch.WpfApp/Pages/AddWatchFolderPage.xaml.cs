@@ -16,7 +16,8 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using OverLayApplicationSearch.Logic;
 using OverLayApplicationSearch.WpfApp.Pages;
 using OverLayApplicationSearch.Contract.Persistence.Entity;
-using OverLayApplicationSearch.Contract.Persistence.Enumeration;
+using OverLayApplicationSearch.WpfApp.Contracts;
+using static OverLayApplicationSearch.Contract.Persistence.Enumeration.TimeSchedule;
 
 namespace OverLayApplicationSearch.WpfApp
 {
@@ -28,11 +29,6 @@ namespace OverLayApplicationSearch.WpfApp
         public AddWatchFolderPage()
         {
             InitializeComponent();
-        }
-
-        private async void buttonAddFolderNext_Click(object sender, RoutedEventArgs e)
-        {
-          
         }
 
         private void buttonAddFolderFolderSelect_Click(object sender, RoutedEventArgs e)
@@ -51,7 +47,7 @@ namespace OverLayApplicationSearch.WpfApp
             set { this.textBoxAddFolderFolderSelect.Text = value; }
         }
 
-        public PageableWindow ParentWindow
+        internal PageableWindow ParentWindow
         {
             get
             {
@@ -97,7 +93,7 @@ namespace OverLayApplicationSearch.WpfApp
                 {
                     IConfiguredTask task = controller.Create();
                     task.Path = ChosenFolder;
-                    task.TimeScheduled = TimeSchedule.NEVER;
+                    task.TimeScheduled = NEVER;
                     controller.Store(task);
                     return task;
                 }

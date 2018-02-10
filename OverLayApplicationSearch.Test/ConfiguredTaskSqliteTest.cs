@@ -7,8 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OverLayApplicationSearch.Contract.Persistence.Entity;
-using OverLayApplicationSearch.Contract.Persistence.Enumeration;
 using OverLayApplicationSearch.Logic;
+using static OverLayApplicationSearch.Contract.Persistence.Enumeration.TimeSchedule;
 
 namespace OverLayApplicationSearch.Test
 {
@@ -27,7 +27,7 @@ namespace OverLayApplicationSearch.Test
             {
                 IConfiguredTask task1 = controller.Create();
                 task1.Path = "C:/Temp";
-                task1.TimeScheduled = TimeSchedule.HOURS_12;              
+                task1.TimeScheduled = HOURS_12;              
                 controller.Store(task1);
                 Assert.AreEqual(1, controller.Count);
                 Assert.AreNotEqual(0, task1.Id);
@@ -59,14 +59,14 @@ namespace OverLayApplicationSearch.Test
             {
                 IConfiguredTask task1 = controller.Create();
                 task1.Path = "C:/Temp";
-                task1.TimeScheduled = TimeSchedule.HOURS_12;
+                task1.TimeScheduled = HOURS_12;
                 controller.Store(task1);
                 Assert.AreEqual(1, controller.Count);
                 Assert.AreNotEqual(0, task1.Id);
 
                 IConfiguredTask task2 = controller.Create();
                 task2.Path = "D:/Temp";
-                task2.TimeScheduled = TimeSchedule.HOURS_12;
+                task2.TimeScheduled = HOURS_12;
                 task2.LastTimeIndexed = DateTime.Now;
                 controller.Store(task2);
                 Assert.AreEqual(2, controller.Count);

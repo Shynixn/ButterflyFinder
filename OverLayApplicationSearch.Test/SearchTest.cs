@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OverLayApplicationSearch.Contract.Persistence.Entity;
-using OverLayApplicationSearch.Contract.Persistence.Enumeration;
 using OverLayApplicationSearch.Logic;
+using static OverLayApplicationSearch.Contract.Persistence.Enumeration.TimeSchedule;
 
 namespace OverLayApplicationSearch.Test
 {
@@ -49,7 +49,7 @@ namespace OverLayApplicationSearch.Test
             {
                 task = taskController.Create();
                 task.Path = info.FullName;
-                task.TimeScheduled = TimeSchedule.HOURS_12;
+                task.TimeScheduled = HOURS_12;
                 taskController.Store(task);
             }
 
@@ -82,7 +82,7 @@ namespace OverLayApplicationSearch.Test
             {
                 task = taskController.Create();
                 task.Path = info.FullName;
-                task.TimeScheduled = TimeSchedule.HOURS_12;
+                task.TimeScheduled = HOURS_12;
                 taskController.Store(task);
             }
 

@@ -126,6 +126,7 @@ namespace OverLayApplicationSearch.TrayWinForm
             var window = new MainWindow();
             ElementHost.EnableModelessKeyboardInterop(window);
             window.Show();
+            this.trayIcon.ShowBalloonTip(8000, "ButterflyFinder", "Butterflyfinder is running. Access the context menu by using the shortcut.", ToolTipIcon.Info);
         }
 
 
@@ -140,11 +141,10 @@ namespace OverLayApplicationSearch.TrayWinForm
                         controller.OnFileSystemChange(info);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception)
                 {
-
+                    // ignored
                 }
-              
             });
         }
 

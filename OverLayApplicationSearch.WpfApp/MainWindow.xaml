@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:OverLayApplicationSearch.WpfApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525" WindowStyle="None" ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen"  AllowsTransparency="True" Background="Transparent" WindowState="Maximized">
+        WindowStartupLocation="CenterScreen" AllowsTransparency="True" Background="Transparent">
 
 
-    <Grid Loaded="OnLoaded" >
+    <Grid Loaded="OnLoaded">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="3*" />
@@ -23,8 +23,8 @@
             <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
 
-        
-        <DockPanel  Name="titlePanel"  Background="#6a00ff" Grid.Column="0" Grid.ColumnSpan="3" Opacity="0.5">
+
+        <DockPanel Name="titlePanel" Background="#6a00ff" Grid.Column="0" Grid.ColumnSpan="3" Opacity="0.5">
             <Viewbox>
                 <Label VerticalContentAlignment="Stretch" FontFamily="Segoe UI Light"
                        Foreground="White">
@@ -40,25 +40,34 @@
         </DockPanel>
 
         <ListBox Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="3" Name="resultListBox"
-                 ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" Opacity="0.5" KeyDown="onListBoxKeyEnterPressed" MouseDown="onMouseDownEventListbox"  MouseDoubleClick="onListBoxDoubleClickItem">/>
+                 ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" Opacity="0.5"
+                 KeyDown="onListBoxKeyEnterPressed" 
+                 MouseDoubleClick="onListBoxDoubleClickItem">
+            />
+            
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Image HorizontalAlignment="Left" VerticalAlignment="Stretch" Name="iconImage" Source="{Binding ImageSource}" Margin="50,0,75,0"></Image>
+                        <Image HorizontalAlignment="Left" VerticalAlignment="Stretch" Name="iconImage"
+                               Source="{Binding Icon}" Margin="50,0,75,0" />
                         <StackPanel Orientation="Vertical">
-                            <Label Name="pathLabel" FontSize="15" Content="{Binding Path}"  HorizontalContentAlignment="Stretch"/>
-                            <Label Name="nameLabel" FontSize="25" Content="{Binding Name}" HorizontalContentAlignment="Stretch"/>
+                            <Label Name="pathLabel" FontSize="15" Content="{Binding Header}"
+                                   HorizontalContentAlignment="Stretch" />
+                            <Label Name="nameLabel" FontSize="25" Content="{Binding Text}"
+                                   HorizontalContentAlignment="Stretch" />
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Viewbox Name="messageBox" Stretch="Uniform" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1" Opacity="0.5">
+        <Viewbox Name="messageBox" Stretch="Uniform" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1"
+                 Opacity="0.5">
             <Label FontFamily="Segoe UI Light" Name="noResultsLabel">No Results</Label>
-         </Viewbox>
+        </Viewbox>
 
-        <Viewbox Name="forgroundSearchBox" Stretch="Uniform" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" >
+        <Viewbox Name="forgroundSearchBox" Stretch="Uniform" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0"
+                 Grid.ColumnSpan="3">
             <StackPanel Orientation="Vertical">
                 <StackPanel Height="50" Background="#1ba1e2" Orientation="Horizontal">
                     <Label Height="50" VerticalContentAlignment="Center" FontFamily="Segoe UI Light" FontSize="30"
@@ -84,19 +93,20 @@
             </StackPanel>
         </Viewbox>
 
-        <DockPanel Margin="0,0,0,0"  Name="titlePanel1"  Background="#6a00ff" Grid.Column="0"  Grid.Row="4" Grid.ColumnSpan="3" Opacity="0.5">
+        <DockPanel Margin="0,0,0,0" Name="taskPanel" Background="#6a00ff" Grid.Column="0" Grid.Row="4"
+                   Grid.ColumnSpan="3" Opacity="0.5" MouseEnter="onMouseEnterTaskBarArea" MouseLeave="onMouseLeaveTaskBarArea">
             <Viewbox HorizontalAlignment="Left">
-                <DockPanel Background="#1ba1e2" Cursor="Hand">
+                <DockPanel Background="#1ba1e2" Cursor="Hand" Name="elementTaskKiller" MouseDown="onMouseClickOnTaskKillerLabel">
                     <Label VerticalContentAlignment="Stretch" FontFamily="Segoe UI Light" Foreground="White">
                         Task Killer
                     </Label>
+                    <DockPanel.Effect>
+                        <DropShadowEffect ShadowDepth="0"
+                                          Color="#6a00ff"
+                                          Opacity="1"
+                                          BlurRadius="8"/>
+                    </DockPanel.Effect>
                 </DockPanel>
-            </Viewbox>
-            <Viewbox HorizontalAlignment="Right">
-                <Label VerticalContentAlignment="Stretch" FontFamily="Segoe UI Light"
-                       Foreground="White" Name="clockLabel1">
-                    00:00
-                </Label>
             </Viewbox>
         </DockPanel>
     </Grid>

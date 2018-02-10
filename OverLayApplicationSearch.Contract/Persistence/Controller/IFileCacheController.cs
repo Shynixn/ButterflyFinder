@@ -22,6 +22,12 @@ namespace OverLayApplicationSearch.Contract.Persistence.Controller
         void DeleteByTask(IConfiguredTask task);
 
         /// <summary>
+        /// Deletes all entries with the given path.
+        /// </summary>
+        /// <param name="path">path</param>
+        void DeleteByPath(string path);   
+
+        /// <summary>
         /// Returns the items matching the searchText
         /// </summary>
         /// <param name="searchText">searchText</param>

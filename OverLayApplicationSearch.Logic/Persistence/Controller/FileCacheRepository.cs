@@ -33,13 +33,13 @@ namespace OverLayApplicationSearch.Logic.Persistence.Controller
 
 
         public void OnFileSystemChange(object info)
-        {           
-            NotifyInfos data = (NotifyInfos) info;            
+        {
+            NotifyInfos data = (NotifyInfos) info;
             if (data.Notification.Equals(SHCNE.SHCNE_RENAMEITEM))
             {
                 var result = searchExact(data.Item1, Path.GetFileName(data.Item1));
                 long id;
-                if(result.TryGetValue(Path.GetFileName(data.Item1), out id))
+                if (result.TryGetValue(Path.GetFileName(data.Item1), out id))
                 {
                     IFileCache cache = this.GetById(id);
                     cache.FileName = Path.GetFileName(data.Item2);
@@ -56,11 +56,12 @@ namespace OverLayApplicationSearch.Logic.Persistence.Controller
                     this.Delete(cache);
                 }
             }
-            else if(data.Notification.Equals(SHCNE.SHCNE_CREATE))
+            else if (data.Notification.Equals(SHCNE.SHCNE_CREATE))
             {
                 string[] parts = data.Item1.Split('\\');
 
-                var result = searchExact(Path.GetDirectoryName(data.Item1), Path.GetFileName(Path.GetDirectoryName(data.Item1)));
+                var result = searchExact(Path.GetDirectoryName(data.Item1),
+                    Path.GetFileName(Path.GetDirectoryName(data.Item1)));
 
                 long id;
                 if (result.TryGetValue(Path.GetFileName(Path.GetDirectoryName(data.Item1)), out id))
@@ -85,7 +86,8 @@ namespace OverLayApplicationSearch.Logic.Persistence.Controller
             get
             {
                 using (var command =
-                    connectionContext.ExecuteStoredQuery($"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.count.sql", connection))
+                    connectionContext.ExecuteStoredQuery(
+                        $"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.count.sql", connection))
                 {
                     return Convert.ToInt32(command.ExecuteScalar());
                 }
@@ -100,7 +102,8 @@ namespace OverLayApplicationSearch.Logic.Persistence.Controller
         /// <returns>item</returns>
         public override IFileCache GetById(long id)
         {
-            using (var command = connectionContext.ExecuteStoredQuery($"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.selectbyid.sql",
+            using (var command = connectionContext.ExecuteStoredQuery(
+                $"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.selectbyid.sql",
                 connection, new object[] {id}))
             {
                 using (var reader = command.ExecuteReader())
@@ -132,7 +135,8 @@ namespace OverLayApplicationSearch.Logic.Persistence.Controller
         {
             var list = new List<IFileCache>();
             using (var command =
-                connectionContext.ExecuteStoredQuery($"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.select.sql",
+                connectionContext.ExecuteStoredQuery(
+                    $"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.select.sql",
                     connection))
             {
                 using (var reader = command.ExecuteReader())
@@ -152,7 +156,8 @@ namespace OverLayApplicationSearch.Logic.Persistence.Controller
         /// <param name="item">item</param>
         protected override void Update(IFileCache item)
         {
-            connectionContext.ExecuteStoredUpdated($"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.update.sql",
+            connectionContext.ExecuteStoredUpdated(
+                $"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.update.sql",
                 connection,
                 new object[] {item.FileName, item.ParentId, item.TimeTaskId, item.Id});
         }
@@ -163,7 +168,8 @@ namespace OverLayApplicationSearch.Logic.Persistence.Controller
         /// <param name="item">item</param>
         protected override void Delete(IFileCache item)
         {
-            connectionContext.ExecuteStoredUpdated($"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.delete.sql",
+            connectionContext.ExecuteStoredUpdated(
+                $"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.delete.sql",
                 connection,
                 new object[] {item.Id});
         }
@@ -174,7 +180,8 @@ namespace OverLayApplicationSearch.Logic.Persistence.Controller
         /// <param name="item">item</param>
         protected override void Insert(IFileCache item)
         {
-            var id = connectionContext.ExecuteStoredInsert($"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.insert.sql", connection,
+            var id = connectionContext.ExecuteStoredInsert(
+                $"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.insert.sql", connection,
                 new object[] {item.FileName, item.ParentId, item.TimeTaskId});
             ((FileCache) item).Id = id;
         }
@@ -214,9 +221,26 @@ namespace OverLayApplicationSearch.Logic.Persistence.Controller
         /// <param name="task">task</param>
         public void DeleteByTask(IConfiguredTask task)
         {
-            connectionContext.ExecuteStoredUpdated($"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.deletebytask.sql",
+            connectionContext.ExecuteStoredUpdated(
+                $"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.deletebytask.sql",
                 connection,
                 new object[] {task.Id});
+        }
+
+        /// <summary>
+        /// Deletes all entries with the given path.
+        /// </summary>
+        /// <param name="path">path</param>
+        public void DeleteByPath(string path)
+        {
+            var id = GetIdFromPath(path);
+            if (id != 0)
+            {
+                connectionContext.ExecuteStoredUpdated(
+                    $"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.delete.sql",
+                    connection,
+                    new object[] {id});
+            }
         }
 
         /// <summary>
@@ -229,7 +253,8 @@ namespace OverLayApplicationSearch.Logic.Persistence.Controller
         {
             var result = new List<string>();
             using (var command =
-                connectionContext.ExecuteStoredQuery($"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.search.sql",
+                connectionContext.ExecuteStoredQuery(
+                    $"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.search.sql",
                     connection, new object[] {maxAmount}))
             {
                 command.CommandText = command.CommandText.Replace("KEY", searchText);
@@ -244,11 +269,36 @@ namespace OverLayApplicationSearch.Logic.Persistence.Controller
             return result;
         }
 
+        private long GetIdFromPath(string path)
+        {
+            using (var command =
+                connectionContext.ExecuteStoredQuery(
+                    $"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.getidfrompathsegment.sql",
+                    connection, new object[] {100}))
+            {
+                var lastPathSegment = Path.GetFileName(path);
+                command.CommandText = command.CommandText.Replace("KEY", lastPathSegment).Replace("CUSTOMPATH", path);
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var result = reader["id"];
+                        if (result != null)
+                        {
+                            return Int64.Parse(result.ToString());
+                        }
+                    }
+                }
+            }
+            return 0;
+        }
+
         private Dictionary<string, long> searchExact(string path, string name)
         {
             Dictionary<string, long> result = new Dictionary<string, long>();
             using (var command =
-                connectionContext.ExecuteStoredQuery($"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.exactsearch.sql",
+                connectionContext.ExecuteStoredQuery(
+                    $"OverLayApplicationSearch.Logic.Resource.SQL.FileCache{database}.exactsearch.sql",
                     connection))
             {
                 command.CommandText = command.CommandText.Replace("KEY", name);
@@ -262,15 +312,15 @@ namespace OverLayApplicationSearch.Logic.Persistence.Controller
 
                         string[] parts1 = cname.Split('/');
                         string[] parts2 = cid.Split('/');
-                        
-                        for(int i = 0; i< parts1.Length; i++)
+
+                        for (int i = 0; i < parts1.Length; i++)
                         {
                             result.Add(parts1[i], Convert.ToInt32(parts2[i]));
                         }
                     }
                     return result;
                 }
-            }   
+            }
         }
 
 
