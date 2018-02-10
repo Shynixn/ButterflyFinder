@@ -144,18 +144,12 @@ namespace OverLayApplicationSearch.Updater
         private string RetrieveVersion()
         {
             HtmlWeb web = new HtmlWeb();
-            var doc = web.Load("https://github.com/Shynixn/" + Program_Name + "/releases");
-            foreach (var item in doc.DocumentNode.SelectNodes("//div"))
+            var doc = web.Load("https://github.com/Shynixn/" + Program_Name + "/releases/latest");
+            foreach (var item in doc.DocumentNode.SelectNodes("//a"))
             {
-                if (item.Attributes["class"] != null && item.Attributes["class"].Value.Contains("release label-latest"))
+                if (item.Attributes["href"] != null && item.Attributes["href"].Value.StartsWith("/Shynixn/ButterflyFinder/tree"))
                 {
-                    foreach (var subItem in item.SelectNodes("//span"))
-                    {
-                        if (subItem.Attributes["class"] != null && subItem.Attributes["class"].Value == "css-truncate-target")
-                        {
-                            return subItem.InnerText;
-                        }
-                    }
+                    return item.Attributes["href"].Value.Replace("/Shynixn/ButterflyFinder/tree/", "");
                 }
             }
             return null;
