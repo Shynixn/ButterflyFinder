@@ -1,9 +1,5 @@
 # ButterflyFinder [![GitHub license](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://raw.githubusercontent.com/Shynixn/ButterflyFinder/master/LICENSE)
 
-| branch        | status        | download      |
-| ------------- | --------------| --------------| 
-| master        | [![Build Status](https://img.shields.io/travis/rust-lang/rust.svg)](https://github.com/Shynixn/ButterflyFinder) |[Download latest release (recommend)](https://github.com/Shynixn/ButterflyFinder/releases)|
-
 ## Description
 Advanced windows file finder.
 
@@ -24,6 +20,6 @@ Advanced windows file finder.
 
 ## Licence
 
-Copyright 2017 Shynixn
+Copyright 2017-2018 Shynixn
 
 Licenced under the GNU GENERAL PUBLIC LICENSE
