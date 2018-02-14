@@ -13,7 +13,7 @@ using OverLayApplicationSearch.WpfApp.Models;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 
-namespace OverLayApplicationSearch.WpfApp
+namespace OverLayApplicationSearch.WpfApp.UserControls
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -47,8 +47,8 @@ namespace OverLayApplicationSearch.WpfApp
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
-
-           this.WindowState = WindowState.Maximized;
+             
+            this.WindowState = WindowState.Maximized;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)

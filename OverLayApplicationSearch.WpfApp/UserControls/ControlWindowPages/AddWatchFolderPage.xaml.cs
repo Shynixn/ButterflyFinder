@@ -1,25 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using OverLayApplicationSearch.Logic;
-using OverLayApplicationSearch.WpfApp.Pages;
 using OverLayApplicationSearch.Contract.Persistence.Entity;
+using OverLayApplicationSearch.Contract.Persistence.Enumeration;
+using OverLayApplicationSearch.Logic;
 using OverLayApplicationSearch.WpfApp.Contracts;
-using static OverLayApplicationSearch.Contract.Persistence.Enumeration.TimeSchedule;
 
-namespace OverLayApplicationSearch.WpfApp
+namespace OverLayApplicationSearch.WpfApp.UserControls.ControlWindowPages
 {
     /// <summary>
     /// Interaction logic for AddWatchFolderPage.xaml
@@ -93,7 +83,7 @@ namespace OverLayApplicationSearch.WpfApp
                 {
                     IConfiguredTask task = controller.Create();
                     task.Path = ChosenFolder;
-                    task.TimeScheduled = NEVER;
+                    task.TimeScheduled = TimeSchedule.NEVER;
                     controller.Store(task);
                     return task;
                 }
@@ -102,7 +92,7 @@ namespace OverLayApplicationSearch.WpfApp
 
         private async void buttonCreateTask_Click(object sender, RoutedEventArgs e)
         {
-            string text = (string)this.textBoxAddFolderFolderSelect.Text;
+            string text = (string) this.textBoxAddFolderFolderSelect.Text;
             bool duplicate = await DuplicateFolderTask(text);
             if (duplicate)
             {
@@ -121,7 +111,7 @@ namespace OverLayApplicationSearch.WpfApp
             ChosenFolder = this.SelectedFolder;
             IConfiguredTask task = await StoreNewTask();
             ParentWindow.Scan(task);
-            ((ControlWindow)ParentWindow).PrepareForScan = true;
+            ((ControlWindow) ParentWindow).PrepareForScan = true;
             ParentWindow.Next();
         }
     }

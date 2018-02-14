@@ -25,7 +25,8 @@ namespace OverLayApplicationSearch.Logic
         {
             try
             {
-                connectionContext = ConnectionContext.CreateConnectionContext(AppDomain.CurrentDomain.BaseDirectory + "storage.sqlite");
+                connectionContext =
+                    ConnectionContext.CreateConnectionContext(AppDomain.CurrentDomain.BaseDirectory + "storage.sqlite");
                 using (var connection = connectionContext.Connection)
                 {
                     connectionContext.ExecuteStoredUpdated(
@@ -73,6 +74,10 @@ namespace OverLayApplicationSearch.Logic
         /// <returns></returns>
         public static IFileCacheController CreateFilecacheController()
         {
+            if (connectionContext == null)
+            {
+                return null;
+            }
             return new FileCacheRepository(connectionContext);
         }
     }

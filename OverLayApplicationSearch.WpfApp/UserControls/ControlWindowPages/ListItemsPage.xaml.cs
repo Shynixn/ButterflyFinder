@@ -1,32 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using OverLayApplicationSearch.Contract.Business.Entity;
-using OverLayApplicationSearch.Contract.Persistence.Controller;
 using OverLayApplicationSearch.Contract.Persistence.Entity;
-using OverLayApplicationSearch.Contract.Persistence.Enumeration;
 using OverLayApplicationSearch.Logic;
 using OverLayApplicationSearch.WpfApp.Contracts;
 using OverLayApplicationSearch.WpfApp.Models;
 using MessageBox = System.Windows.MessageBox;
 using UserControl = System.Windows.Controls.UserControl;
 
-namespace OverLayApplicationSearch.WpfApp.Pages
+namespace OverLayApplicationSearch.WpfApp.UserControls.ControlWindowPages
 {
     /// <summary>
     /// Interaction logic for ListItemsPage.xaml
@@ -134,12 +119,19 @@ namespace OverLayApplicationSearch.WpfApp.Pages
 
         private async void RefreshTasks()
         {
-            var tasks = await LoadTasksFromDatabaseDatabase();
-            this.listBoxTasks.Items.Clear();          
-            foreach (var configuredTask in tasks)
+            try
             {
-                this.listBoxTasks.Items.Add(new TaskListboxItemModel(this, configuredTask));
+                var tasks = await LoadTasksFromDatabaseDatabase();
+                this.listBoxTasks.Items.Clear();
+                foreach (var configuredTask in tasks)
+                {
+                    this.listBoxTasks.Items.Add(new TaskListboxItemModel(this, configuredTask));
+                }
             }
+            catch (Exception e)
+            {
+             
+            }           
         }
 
         private Task DeleteTask(IConfiguredTask task)
