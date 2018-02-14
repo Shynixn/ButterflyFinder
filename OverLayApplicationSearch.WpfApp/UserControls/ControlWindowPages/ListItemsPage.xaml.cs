@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
@@ -118,12 +119,19 @@ namespace OverLayApplicationSearch.WpfApp.UserControls.ControlWindowPages
 
         private async void RefreshTasks()
         {
-            var tasks = await LoadTasksFromDatabaseDatabase();
-            this.listBoxTasks.Items.Clear();          
-            foreach (var configuredTask in tasks)
+            try
             {
-                this.listBoxTasks.Items.Add(new TaskListboxItemModel(this, configuredTask));
+                var tasks = await LoadTasksFromDatabaseDatabase();
+                this.listBoxTasks.Items.Clear();
+                foreach (var configuredTask in tasks)
+                {
+                    this.listBoxTasks.Items.Add(new TaskListboxItemModel(this, configuredTask));
+                }
             }
+            catch (Exception e)
+            {
+             
+            }           
         }
 
         private Task DeleteTask(IConfiguredTask task)

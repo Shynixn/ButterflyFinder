@@ -8,6 +8,7 @@ using OverLayApplicationSearch.Contract.Business.Entity;
 using OverLayApplicationSearch.Contract.Persistence.Entity;
 using OverLayApplicationSearch.Logic;
 using OverLayApplicationSearch.WpfApp.Contracts;
+
 using ListItemsPage = OverLayApplicationSearch.WpfApp.UserControls.ControlWindowPages.ListItemsPage;
 
 namespace OverLayApplicationSearch.WpfApp.UserControls
