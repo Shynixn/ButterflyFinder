@@ -1,27 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using OverLayApplicationSearch.Contract.Business.Entity;
 using OverLayApplicationSearch.Contract.Persistence.Entity;
-using OverLayApplicationSearch.Contract.Persistence.Enumeration;
 using OverLayApplicationSearch.Logic;
-using OverLayApplicationSearch.WpfApp.Pages;
-using System.Security;
 using OverLayApplicationSearch.WpfApp.Contracts;
+using ListItemsPage = OverLayApplicationSearch.WpfApp.UserControls.ControlWindowPages.ListItemsPage;
 
-namespace OverLayApplicationSearch.WpfApp
+namespace OverLayApplicationSearch.WpfApp.UserControls
 {
+    /// <inheritdoc cref="PageableWindow" />
     /// <summary>
     /// Interaction logic for ControlWindow.xaml
     /// </summary>
@@ -43,28 +34,6 @@ namespace OverLayApplicationSearch.WpfApp
         private void onWindowLoaded(object sender, RoutedEventArgs e)
         {
             SelectPage(new ListItemsPage());
-
-       /*     using (var controller = Factory.CreatePasswordController())
-            {
-                SecureString text = controller.GeneratePassword();
-
-                IPa pa = controller.Create();
-                pa.PassWord = text;
-
-                controller.Store(pa);
-
-
-
-            }
-
-            using (var controller = Factory.CreatePasswordController())
-            {
-                List<IPa> pas = controller.GetAll();
-
-
-
-            }
-            */
         }
 
         public void Destroy()
@@ -116,11 +85,7 @@ namespace OverLayApplicationSearch.WpfApp
 
         public void Back()
         {
-            if (this.currentPage is CreateTaskPage)
-            {
-                SelectPage(new AddWatchFolderPage() { SelectedFolder = selectedPath });
-            }
-            else if (this.currentPage is AddWatchFolderPage)
+            if (this.currentPage is ControlWindowPages.AddWatchFolderPage)
             {
                 SelectPage(new ListItemsPage());
                 this.selectedPath = "";
@@ -131,9 +96,9 @@ namespace OverLayApplicationSearch.WpfApp
         {
             if (this.currentPage is ListItemsPage)
             {
-                SelectPage(new AddWatchFolderPage() { SelectedFolder = selectedPath });
+                SelectPage(new ControlWindowPages.AddWatchFolderPage() { SelectedFolder = selectedPath });
             }
-            else if (this.currentPage is AddWatchFolderPage)
+            else if (this.currentPage is ControlWindowPages.AddWatchFolderPage)
             {
                 SelectPage(new ListItemsPage());
             }

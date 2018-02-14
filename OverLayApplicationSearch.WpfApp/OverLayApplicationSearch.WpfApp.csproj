@@ -52,7 +52,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>logo.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -96,59 +97,45 @@
       <DependentUpon>lang_en.resx</DependentUpon>
     </Compile>
     <Compile Include="Enumeration\SearchWindowState.cs" />
-    <Page Include="Pages\AddWatchFolderPage.xaml">
+    <Page Include="UserControls\ControlWindowPages\AddWatchFolderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ControlWindow.xaml">
+    <Page Include="UserControls\ControlWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="UserControls\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\RelayCommand.cs" />
     <Compile Include="Models\TaskListboxItemModel.cs" />
-    <Compile Include="Pages\AddWatchFolderPage.xaml.cs">
+    <Compile Include="UserControls\ControlWindowPages\AddWatchFolderPage.xaml.cs">
       <DependentUpon>AddWatchFolderPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ControlWindow.xaml.cs">
+    <Compile Include="UserControls\ControlWindow.xaml.cs">
       <DependentUpon>ControlWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="UserControls\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\CreateTaskPage.xaml">
+    <Page Include="UserControls\ControlWindowPages\ListItemsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\ListItemsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\SelectSchedulePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pages\CreateTaskPage.xaml.cs">
-      <DependentUpon>CreateTaskPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\ListItemsPage.xaml.cs">
+    <Compile Include="UserControls\ControlWindowPages\ListItemsPage.xaml.cs">
       <DependentUpon>ListItemsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Contracts\PageableWindow.cs" />
-    <Compile Include="Pages\SelectSchedulePage.xaml.cs">
-      <DependentUpon>SelectSchedulePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -197,13 +184,9 @@
     <Resource Include="Resources\transparent_icon.ico" />
     <Resource Include="Resources\folder.ico" />
     <Resource Include="Resources\folder_icon.ico" />
-    <Resource Include="Resources\nodatafound.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\logo.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="logo.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

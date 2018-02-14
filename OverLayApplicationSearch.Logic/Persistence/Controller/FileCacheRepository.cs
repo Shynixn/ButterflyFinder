@@ -19,6 +19,8 @@ namespace OverLayApplicationSearch.Logic.Persistence.Controller
         internal SQLiteConnection connection;
         private ConnectionContext connectionContext;
         private string database;
+        private string pathCache;
+        private long lastPathCache;
 
         /// <summary>
         /// Initialize
@@ -31,10 +33,19 @@ namespace OverLayApplicationSearch.Logic.Persistence.Controller
             this.database = database;
         }
 
-
         public void OnFileSystemChange(object info)
         {
             NotifyInfos data = (NotifyInfos) info;
+            if (pathCache != null && data.Item1 == pathCache)
+            {
+                long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+                if (lastPathCache - milliseconds < 10000)
+                {
+                    return;
+                }
+            }
+            pathCache = data.Item1;
+            lastPathCache = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             if (data.Notification.Equals(SHCNE.SHCNE_RENAMEITEM))
             {
                 var result = searchExact(data.Item1, Path.GetFileName(data.Item1));
@@ -74,6 +85,16 @@ namespace OverLayApplicationSearch.Logic.Persistence.Controller
                     this.Store(child);
                 }
             }
+            LiveLog(data);
+        }
+
+
+        private void LiveLog(NotifyInfos data)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(data.Notification.ToString() + " - " + data.Item1);
+            File.AppendAllText("log.txt", sb.ToString());
+            sb.Clear();
         }
 
 

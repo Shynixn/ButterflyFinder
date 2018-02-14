@@ -18,6 +18,7 @@ using OverLayApplicationSearch.Logic.Lib;
 using Microsoft.Win32;
 using OverLayApplicationSearch.Logic;
 using OverLayApplicationSearch.Logic.Persistence.Controller;
+using OverLayApplicationSearch.WpfApp.UserControls;
 
 namespace OverLayApplicationSearch.TrayWinForm
 {
@@ -39,9 +40,11 @@ namespace OverLayApplicationSearch.TrayWinForm
         {
             switch (m.Msg)
             {
-                case (int)ShellNotifications.WM_SHNOTIFY:
+                case (int) ShellNotifications.WM_SHNOTIFY:
                     if (Notifications.NotificationReceipt(m.WParam, m.LParam))
-                        NewOperation((NotifyInfos)Notifications.NotificationsReceived[Notifications.NotificationsReceived.Count - 1]);
+                        NewOperation(
+                            (NotifyInfos) Notifications.NotificationsReceived[
+                                Notifications.NotificationsReceived.Count - 1]);
                     break;
             }
             base.WndProc(ref m);
@@ -76,12 +79,12 @@ namespace OverLayApplicationSearch.TrayWinForm
                     }
                     File.Move("NewUpdate.exe", "Update.exe");
                 }
-                RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                RegistryKey registryKey =
+                    Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
                 registryKey.SetValue(Assembly.GetExecutingAssembly().GetName().Name, Application.ExecutablePath);
             }
             catch (IOException)
             {
-
             }
         }
 
@@ -101,32 +104,28 @@ namespace OverLayApplicationSearch.TrayWinForm
         {
             try
             {
-
                 Process.Start("Update.exe", "update-now");
                 ShutDown();
             }
             catch (Exception)
             {
-
             }
-        } 
+        }
 
         private void ControlForm_Load(object sender, EventArgs e)
         {
-            Notifications.RegisterChangeNotify(this.Handle, ShellNotifications.CSIDL.CSIDL_DESKTOP, true);
+//            Notifications.RegisterChangeNotify(this.Handle, ShellNotifications.CSIDL.CSIDL_DESKTOP, true);
             this.trayIcon.Visible = true;
             this.trayIcon.Icon = OverLayApplicationSearch.TrayWinForm.Properties.Resources.logo;
             this.trayIcon.Text = "ButterflyFinder";
             this.ShowInTaskbar = true;
             Opacity = 0;
-            BeginInvoke(new MethodInvoker(delegate
-            {
-               Hide();
-            }));
-            var window = new MainWindow();
+            BeginInvoke(new MethodInvoker(delegate { Hide(); }));
+            var window = new WpfApp.UserControls.MainWindow();
             ElementHost.EnableModelessKeyboardInterop(window);
             window.Show();
-            this.trayIcon.ShowBalloonTip(8000, "ButterflyFinder", "Butterflyfinder is running. Access the context menu by using the shortcut.", ToolTipIcon.Info);
+            this.trayIcon.ShowBalloonTip(8000, "ButterflyFinder",
+                "Butterflyfinder is running. Access the context menu by using the shortcut.", ToolTipIcon.Info);
         }
 
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using OverLayApplicationSearch.Contract.Persistence.Entity;
-using OverLayApplicationSearch.WpfApp.Pages;
+using ListItemsPage = OverLayApplicationSearch.WpfApp.UserControls.ControlWindowPages.ListItemsPage;
 
 namespace OverLayApplicationSearch.WpfApp.Models
 {
