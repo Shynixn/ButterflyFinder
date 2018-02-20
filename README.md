@@ -1,5 +1,11 @@
 # ButterflyFinder [![GitHub license](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://raw.githubusercontent.com/Shynixn/ButterflyFinder/master/LICENSE)
 
+| branch        | status        | download      |
+| ------------- | --------------| --------------| 
+| master        | [![Build Status](https://shynixn.visualstudio.com/_apis/public/build/definitions/2039f178-47bf-422f-9336-ee608cbbdfe3/1/badge)](https://shynixn.visualstudio.com/ButterflyFinder/_build) |[Download latest release (recommend)](https://github.com/Shynixn/ButterflyFinder/releases)|
+| development   | [![Build Status](https://shynixn.visualstudio.com/_apis/public/build/definitions/2039f178-47bf-422f-9336-ee608cbbdfe3/1/badge)](https://shynixn.visualstudio.com/ButterflyFinder/_build)) |
+
+
 ## Description
 Advanced windows file finder.
 
