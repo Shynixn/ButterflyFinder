@@ -30,6 +30,7 @@
         {
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.labelMessage = new System.Windows.Forms.Label();
+            this.buttonRestartButterflyFinder = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // progressBar1
@@ -48,11 +49,23 @@
             this.labelMessage.TabIndex = 1;
             this.labelMessage.Text = "Checking version...";
             // 
+            // buttonRestartButterflyFinder
+            // 
+            this.buttonRestartButterflyFinder.Location = new System.Drawing.Point(314, 36);
+            this.buttonRestartButterflyFinder.Name = "buttonRestartButterflyFinder";
+            this.buttonRestartButterflyFinder.Size = new System.Drawing.Size(149, 23);
+            this.buttonRestartButterflyFinder.TabIndex = 2;
+            this.buttonRestartButterflyFinder.Text = "Restart ButterflyFinder";
+            this.buttonRestartButterflyFinder.UseVisualStyleBackColor = true;
+            this.buttonRestartButterflyFinder.Visible = false;
+            this.buttonRestartButterflyFinder.Click += new System.EventHandler(this.buttonRestartButterflyFinder_Click);
+            // 
             // UpdateControlWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 111);
+            this.ClientSize = new System.Drawing.Size(475, 109);
+            this.Controls.Add(this.buttonRestartButterflyFinder);
             this.Controls.Add(this.labelMessage);
             this.Controls.Add(this.progressBar1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -62,7 +75,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "ButterflyFinder Updater";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.onFormLoadEvent);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -72,6 +85,7 @@
 
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label labelMessage;
+        private System.Windows.Forms.Button buttonRestartButterflyFinder;
     }
 }
 

@@ -13,152 +13,121 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OverLayApplicationSearch.Updater.Models;
 
 namespace OverLayApplicationSearch.Updater
 {
     public partial class UpdateControlWindow : Form
     {
-        const string Program_Name = "ButterflyFinder";
-        private bool updated = false;
-        private string onlineVersion;
-        private string[] protected_Files = new string[] { "storage.sqlite", "Update.zip" };
+        #region Private Fields
 
+        private readonly DownloadInstallUpdateModel model = new DownloadInstallUpdateModel();
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Creates a new instance of <see cref="UpdateControlWindow"/>.
+        /// </summary>
         public UpdateControlWindow()
         {
             InitializeComponent();
         }
 
-        private async void Form1_Load(object sender, EventArgs e)
+        #endregion
+
+        #region Private Events
+
+        /// <summary>
+        /// Gets called on load and checks for updates.
+        /// </summary>
+        /// <param name="sender"><see cref="sender"/></param>
+        /// <param name="e"><see cref="downloadProgressChangedEventArgs"/></param>
+        private void onFormLoadEvent(object sender, EventArgs e)
         {
-            await CheckLatestVersionAndUpdate();
+            CheckForUpdates();
         }
 
-        private Task CheckLatestVersionAndUpdate()
-        {  
-            return Task.Factory.StartNew(() =>
+        /// <summary>
+        /// Gets called from an event to set the task completed in <see cref="OnProgressChange"/>.
+        /// </summary>
+        /// <param name="success">was the task a success=</param>
+        private void OnDownloadFinished(bool success)
+        {
+            this.progressBar1.Invoke((MethodInvoker) delegate
             {
-                try
+                this.progressBar1.Value = 100;
+
+                if (success)
                 {
-                    string currentVersion = "0";
-                    if (File.Exists("cache.dat"))
-                    {
-                        currentVersion = File.ReadAllText("cache.dat");
-                    }
-                    onlineVersion = RetrieveVersion();
-                    if (currentVersion.Equals(onlineVersion))
-                    {
-                        this.setLabelMessage("You already have the latest version.");
-                        CloseForm();
-                    }
-                    else
-                    {
-                        this.setLabelMessage("Downloading latest release...");                      
-                        DownloadReleaseZip(onlineVersion);
-                    }
+                    this.labelMessage.Text = "Installing Update was successful.";
+                    this.buttonRestartButterflyFinder.Visible = true;
                 }
-                catch(Exception ex)
+                else
                 {
-                    this.setLabelMessage("Failed to check for updates. Are you connected to the internet?");
-                    CloseForm();
-                }             
-            });   
-        }
-
-        private void CloseForm()
-        {
-            Thread.Sleep(1500);
-            this.labelMessage.Invoke((MethodInvoker)delegate {
-                this.Close();
+                    this.labelMessage.Text = "Failed to install Update. Please try again later.";
+                }
             });
         }
 
-
-        private void setLabelMessage(string message)
+        /// <summary>
+        /// Gets called from an event to display the progress of a background task.
+        /// </summary>
+        /// <param name="sender"><see cref="sender"/></param>
+        /// <param name="downloadProgressChangedEventArgs"><see cref="downloadProgressChangedEventArgs"/></param>
+        private void OnProgressChange(object sender, DownloadProgressChangedEventArgs downloadProgressChangedEventArgs)
         {
-            this.labelMessage.Invoke((MethodInvoker)delegate {
-                labelMessage.Text = message;
-            });
-        }
-
-
-        private void DownloadReleaseZip(string releaseVersion)
-        {
-            using (WebClient wc = new WebClient())
+            this.progressBar1.Invoke((MethodInvoker) delegate
             {
-                wc.DownloadProgressChanged += wc_DownloadProgressChanged;
-                wc.DownloadFileAsync(new System.Uri("https://github.com/Shynixn/" + Program_Name + "/releases/download/" + releaseVersion + "/" + Program_Name + ".zip"),
-                "Update.zip");
-            }     
+                this.progressBar1.Value = downloadProgressChangedEventArgs.ProgressPercentage;
+            });
         }
 
-        private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        /// <summary>
+        /// Closes the current form when being clicked on the <see cref="buttonRestartButterflyFinder"/>.
+        /// </summary>
+        /// <param name="sender"><see cref="sender"/></param>
+        /// <param name="e"><see cref="e"/></param>
+        private void buttonRestartButterflyFinder_Click(object sender, EventArgs e)
         {
-            this.progressBar1.Invoke((MethodInvoker)delegate {
-                this.progressBar1.Value = e.ProgressPercentage;
-            });
-            if(e.ProgressPercentage >= 100 && updated == false) {
-                updated = true;
-                this.setLabelMessage("Unzipping and replacing existing files...");
-                foreach (string file in Directory.GetDirectories(Directory.GetCurrentDirectory()))
-                {
-                    try
-                    {
-                        Directory.Delete(file, true);
-                    }
-                    catch (Exception ex)
-                    {
+            try
+            {
+                Process.Start("butterflyfinder.exe");
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+            this.Close();
+        }
 
-                    }
-                }
-                foreach (string file in Directory.GetFiles(Directory.GetCurrentDirectory()))
-                {
-                    try
-                    {
+        #endregion
 
-                        if (!this.protected_Files.Contains(Path.GetFileName(file)))
-                        {
-                            File.Delete(file);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
+        #region Private Methods
 
-                    }
-                }
-                ZipFile.ExtractToDirectory("Update.zip", Directory.GetCurrentDirectory());
-                File.WriteAllText("cache.dat", onlineVersion);
-                this.setLabelMessage("Finished.");
-                try
-                {
+        /// <summary>
+        /// Checks asynchronly if a new version can be installed and starts the download.
+        /// </summary>
+        private async void CheckForUpdates()
+        {
+            this.labelMessage.Text = "Checking for version...";
 
-                    Process.Start("butterflyfinder.exe");
-                }
-                catch (Exception ex)
-                {
+            var task = Task.Factory.StartNew(() => this.model.IsNewUpdateAvailable());
+            await Task.WhenAll(task);
 
-                }
-                CloseForm();
+            if (task.Result)
+            {
+                this.labelMessage.Text = "Downloading Update...";
+
+                await Task.Run(() => this.model.DownloadLatestUpdate(OnProgressChange, OnDownloadFinished));
+            }
+            else
+            {
+                this.labelMessage.Text = "You have already got the latest version.";
             }
         }
 
-        private string RetrieveVersion()
-        {
-            HtmlWeb web = new HtmlWeb();
-            var doc = web.Load("https://github.com/Shynixn/" + Program_Name + "/releases");
-            foreach (var item in doc.DocumentNode.SelectNodes("//div"))
-            {
-                if (item.Attributes["class"] != null && item.Attributes["class"].Value.Contains("release label-latest"))
-                {
-                    foreach (var subItem in item.SelectNodes("//span"))
-                    {
-                        if (subItem.Attributes["class"] != null && subItem.Attributes["class"].Value == "css-truncate-target")
-                        {
-                            return subItem.InnerText;
-                        }
-                    }
-                }
-            }
-            return null;
-        }
+        #endregion
     }
 }

@@ -14,7 +14,7 @@ namespace OverLayApplicationSearch.Updater
         [STAThread]
         static void Main(string[] args)
         {
-            if (args.Length == 1 && args[0].Equals("update-now"))
+            if (true) //TODO: CHange that args.Length == 1 &&  args[0].Equals("update-now")
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
