@@ -43,12 +43,12 @@ namespace OverLayApplicationSearch.TrayWinForm
                     }
                     File.Move("NewUpdate.exe", "Update.exe");
                 }
-                RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                RegistryKey registryKey =
+                    Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
                 registryKey.SetValue(Assembly.GetExecutingAssembly().GetName().Name, Application.ExecutablePath);
             }
             catch (IOException)
             {
-
             }
         }
 
@@ -67,13 +67,11 @@ namespace OverLayApplicationSearch.TrayWinForm
         {
             try
             {
-
                 Process.Start("Update.exe", "update-now");
                 ShutDown();
             }
             catch (Exception)
             {
-
             }
         }
 
@@ -91,14 +89,12 @@ namespace OverLayApplicationSearch.TrayWinForm
             this.trayIcon.Text = "ButterflyFinder";
             this.ShowInTaskbar = false;
             Opacity = 0;
-            BeginInvoke(new MethodInvoker(delegate
-            {
-                Hide();
-            }));
+            BeginInvoke(new MethodInvoker(Hide));
             var window = new MainWindow();
             ElementHost.EnableModelessKeyboardInterop(window);
             window.Show();
-
+            this.trayIcon.ShowBalloonTip(8000, "ButterflyFinder",
+                "Butterflyfinder is running. Access the context menu by using the shortcut.", ToolTipIcon.Info);
         }
 
         private void onTrayIconKlick(object sender, System.Windows.Forms.MouseEventArgs e)

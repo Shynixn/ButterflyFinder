@@ -56,10 +56,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="FileCacheSqliteTest.cs" />
-    <Compile Include="ConfiguredTaskSqliteTest.cs" />
+    <Compile Include="Logic\IntegrationTests\FileCacheSqliteTest.cs" />
+    <Compile Include="Logic\IntegrationTests\ConfiguredTaskSqliteTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchTest.cs" />
+    <Compile Include="Logic\IntegrationTests\SearchTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OverLayApplicationSearch.Contract\OverLayApplicationSearch.Contract.csproj">
@@ -73,6 +73,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Logic\UnitTests\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
