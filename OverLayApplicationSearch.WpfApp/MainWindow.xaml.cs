@@ -42,10 +42,6 @@ namespace OverLayApplicationSearch.WpfApp
             KeyboardHook.RegisterHotKey(ModifierKeys.Control, Keys.K);
             Factory.ReInitializeContext();
             this.PreviewKeyDown += new System.Windows.Input.KeyEventHandler(HandleEsc);
-
-      
-
-
         }
 
 

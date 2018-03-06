@@ -88,6 +88,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(232, 27);
             this.Name = "ControlForm";
+            this.Opacity = 0D;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.ControlForm_Load);
             this.trayContextMenu.ResumeLayout(false);

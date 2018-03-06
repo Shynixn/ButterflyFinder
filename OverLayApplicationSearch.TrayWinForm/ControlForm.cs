@@ -27,6 +27,7 @@ namespace OverLayApplicationSearch.TrayWinForm
         public ControlForm()
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.logo;
             ChangeUpdaterLocation();
         }
 

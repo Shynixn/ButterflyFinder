@@ -33,6 +33,7 @@ namespace OverLayApplicationSearch.Updater
         public UpdateControlWindow()
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.logo;
         }
 
         #endregion
