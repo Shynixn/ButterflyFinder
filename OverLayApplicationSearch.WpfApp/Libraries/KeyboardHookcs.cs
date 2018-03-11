@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace OverLayApplicationSearch.WpfApp
+namespace OverLayApplicationSearch.WpfApp.Libraries
 {
     public sealed class KeyboardHook : IDisposable
     {

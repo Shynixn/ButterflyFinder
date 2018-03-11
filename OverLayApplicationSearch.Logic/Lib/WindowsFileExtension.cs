@@ -23,11 +23,10 @@ namespace OverLayApplicationSearch.Logic.Lib
         /// <returns>executeable path</returns>
         public static string GetDefaultExecutablePathFromFile(string path)
         {
-            string tempFileName = path;
-            StringBuilder sb = new StringBuilder(1024);
-            long ret = FindExecutableA(tempFileName, string.Empty, sb);
-            if (ret >= 32) return sb.ToString();
-            else return string.Empty;
+            var tempFileName = path;
+            var sb = new StringBuilder(1024);
+            var ret = FindExecutableA(tempFileName, string.Empty, sb);
+            return ret >= 32 ? sb.ToString() : string.Empty;
         }
     }
 }

@@ -89,7 +89,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="SearchWindowState.cs" />
+    <Compile Include="Entities\SearchWindowState.cs" />
     <Page Include="Pages\AddWatchFolderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -102,7 +102,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="KeyboardHookcs.cs" />
+    <Compile Include="Libraries\KeyboardHookcs.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\RelayCommand.cs" />
     <Compile Include="Models\TaskListboxItemModel.cs" />

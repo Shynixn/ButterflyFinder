@@ -20,6 +20,9 @@ using Microsoft.Win32;
 using System.Runtime.InteropServices;
 using System.Text;
 using OverLayApplicationSearch.Logic.Lib;
+using OverLayApplicationSearch.WpfApp.Entities;
+using OverLayApplicationSearch.WpfApp.Libraries;
+using ModifierKeys = OverLayApplicationSearch.WpfApp.Libraries.ModifierKeys;
 
 namespace OverLayApplicationSearch.WpfApp
 {
@@ -41,7 +44,7 @@ namespace OverLayApplicationSearch.WpfApp
             KeyboardHook.KeyPressed += KeyboardHookOnKeyPressed;
             KeyboardHook.RegisterHotKey(ModifierKeys.Control, Keys.K);
             Factory.ReInitializeContext();
-            this.PreviewKeyDown += new System.Windows.Input.KeyEventHandler(HandleEsc);
+            this.PreviewKeyDown += HandleEsc;
         }
 
 

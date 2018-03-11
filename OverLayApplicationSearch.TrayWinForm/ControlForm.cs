@@ -20,8 +20,6 @@ namespace OverLayApplicationSearch.TrayWinForm
 {
     public partial class ControlForm : Form
     {
-        public KeyboardHook KeyboardHook { get; set; }
-
         public ControlWindow ControlWindow { get; set; }
 
         public ControlForm()
