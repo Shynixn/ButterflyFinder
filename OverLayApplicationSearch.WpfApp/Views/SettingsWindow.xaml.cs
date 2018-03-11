@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using OverLayApplicationSearch.Logic;
 using OverLayApplicationSearch.WpfApp.ViewModels;
 
 namespace OverLayApplicationSearch.WpfApp.Views
@@ -23,6 +24,7 @@ namespace OverLayApplicationSearch.WpfApp.Views
         public SettingsWindow()
         {
             InitializeComponent();
+            Factory.ReInitializeContext();
             this.DataContext = new SettingsWindowViewModel();
             ((SettingsWindowViewModel) this.DataContext).ElementCollection = this.pageArea.Children;
             ((SettingsWindowViewModel)this.DataContext).LoadListPage.Execute(null);

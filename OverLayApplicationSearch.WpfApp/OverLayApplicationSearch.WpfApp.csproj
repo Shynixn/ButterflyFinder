@@ -89,6 +89,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Contracts\IListItemsViewModel.cs" />
     <Compile Include="Contracts\ISettingsWindowViewModel.cs" />
     <Compile Include="Entities\SearchWindowState.cs" />
     <Compile Include="Models\ListItemsModel.cs" />
