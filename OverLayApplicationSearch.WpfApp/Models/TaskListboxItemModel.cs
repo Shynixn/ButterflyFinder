@@ -11,7 +11,7 @@ using OverLayApplicationSearch.WpfApp.Pages;
 
 namespace OverLayApplicationSearch.WpfApp.Models
 {
-    internal class TaskListboxItemModel : BaseViewModel
+    internal class TaskListboxItemModel : BaseViewModel<object>
     {
         private ICommand buttonSyncCommand;
         private ICommand buttonDeleteCommand;

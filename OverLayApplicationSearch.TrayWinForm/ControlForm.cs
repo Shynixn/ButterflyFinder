@@ -15,11 +15,14 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
 using System.Reflection;
+using OverLayApplicationSearch.WpfApp.Views;
 
 namespace OverLayApplicationSearch.TrayWinForm
 {
     public partial class ControlForm : Form
     {
+        public SettingsWindow SettingsWindow { get; set; }
+
         public ControlWindow ControlWindow { get; set; }
 
         public ControlForm()
@@ -31,7 +34,8 @@ namespace OverLayApplicationSearch.TrayWinForm
 
         private void ChangeUpdaterLocation()
         {
-            ControlWindow = new ControlWindow();
+         //   ControlWindow = new ControlWindow();
+         SettingsWindow = new SettingsWindow();
             try
             {
                 if (File.Exists("NewUpdate.exe"))
@@ -53,8 +57,9 @@ namespace OverLayApplicationSearch.TrayWinForm
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ElementHost.EnableModelessKeyboardInterop(ControlWindow);
-            ControlWindow.Show();
+      //      ElementHost.EnableModelessKeyboardInterop(ControlWindow);
+       //     ControlWindow.Show();
+       SettingsWindow.Show();
         }
 
         private void exitToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -98,8 +103,10 @@ namespace OverLayApplicationSearch.TrayWinForm
 
         private void onTrayIconKlick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            ElementHost.EnableModelessKeyboardInterop(ControlWindow);
-            ControlWindow.Show();
+            //  ElementHost.EnableModelessKeyboardInterop(ControlWindow);
+            // ControlWindow.Show();
+            SettingsWindow.Show();
+
         }
     }
 }

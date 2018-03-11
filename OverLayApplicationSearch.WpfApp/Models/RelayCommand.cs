@@ -13,7 +13,7 @@ namespace OverLayApplicationSearch.WpfApp.Models
         /// </summary>
         /// <param name="execute"><see cref="Action{T}"/></param>
         /// <param name="predicate"><see cref="Predicate{T}"/></param>
-        public RelayCommand(Action<object> execute, Predicate<object> predicate)
+        public RelayCommand(Action<object> execute, Predicate<object> predicate = null)
         {
             if (execute == null)
                 throw new ArgumentNullException(nameof(execute));

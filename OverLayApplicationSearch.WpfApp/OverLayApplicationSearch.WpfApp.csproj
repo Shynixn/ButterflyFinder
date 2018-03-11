@@ -89,7 +89,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Contracts\ISettingsWindowViewModel.cs" />
     <Compile Include="Entities\SearchWindowState.cs" />
+    <Compile Include="Models\ListItemsModel.cs" />
+    <Compile Include="ViewModels\ListItemsViewModel.cs" />
+    <Compile Include="ViewModels\SettingsWindowViewModel.cs" />
+    <Compile Include="Views\ListItemsView.xaml.cs">
+      <DependentUpon>ListItemsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Pages\AddWatchFolderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -131,6 +141,14 @@
     <Page Include="Pages\SelectSchedulePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ListItemsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -198,9 +216,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
