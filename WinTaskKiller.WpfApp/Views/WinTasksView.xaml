@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="WinTaskKiller.WpfApp.Views.WinTasksView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:WinTaskKiller.WpfApp.Views"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <ListBox
+        ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" 
+        ItemsSource="{Binding WinTasks}">
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+                    <Image HorizontalAlignment="Left" VerticalAlignment="Stretch" Name="iconImage"
+                           Source="{Binding Icon}" Margin="50,0,75,0" />
+                    <StackPanel Orientation="Vertical">
+                        <Label FontSize="15" Content="{Binding ExecutablePath}"
+                               HorizontalContentAlignment="Stretch" />
+                        <Label FontSize="25" Content="{Binding ExecutableName}"
+                               HorizontalContentAlignment="Stretch" />
+                    </StackPanel>
+                </StackPanel>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+</UserControl>

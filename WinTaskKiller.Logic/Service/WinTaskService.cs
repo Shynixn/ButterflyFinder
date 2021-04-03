@@ -11,13 +11,20 @@ namespace WinTaskKiller.Logic.Service
 {
     public class WinTaskService : IWinTaskService
     {
+        private IIconService iconService;
+
+        public WinTaskService(IIconService iconService)
+        {
+            this.iconService = iconService;
+        }
+
         /// <summary>
         /// Gets all current windows tasks running on the system.
         /// </summary>
         /// <returns><see cref="Task{TResult}"/></returns>
-        public Task<List<WinTask>> GetAll()
+        public async Task<List<WinTask>> GetAll()
         {
-            return Task.Run(() =>
+            var result = await Task.Run(async () =>
             {
                 var tasks = new List<WinTask>();
                 var wmiQueryString = "SELECT ProcessId, ExecutablePath, CommandLine FROM Win32_Process";
@@ -33,13 +40,17 @@ namespace WinTaskKiller.Logic.Service
                             Path = (string) mo["ExecutablePath"],
                             CommandLine = (string) mo["CommandLine"],
                         };
-                    foreach (var item in query)
+
+                    var innerQuery = query.ToList();
+                    innerQuery.RemoveAll(e => e.Path == null);
+
+                    foreach (var item in innerQuery)
                     {
                         tasks.Add(new WinTask
                         {
                             ProcessId = item.Process.Id,
                             ExecutablePath = item.Path,
-                            ExecutableName = Path.GetFileName(item.Path)
+                            ExecutableName = Path.GetFileName(item.Path),
                         });
                     }
 
@@ -49,6 +60,13 @@ namespace WinTaskKiller.Logic.Service
                 var internalTasks = tasks.GroupBy(x => x.ExecutablePath).Select(x => x.First()).ToList();
                 return internalTasks.OrderBy(e => e.ExecutableName).ToList();
             });
+
+            foreach (var item in result)
+            {
+                item.Icon = iconService.GetImageSourceFromFilePath(item.ExecutablePath);
+            }
+
+            return result;
         }
 
         /// <summary>
