@@ -28,10 +28,7 @@ namespace WinTaskKiller.WpfApp.ViewModels
         {
             _window = window;
             KillTaskCommand = new ActionCommand<WinTask>(KillTask);
-            Model.OnHotKeyPress += OnGlobalHookKeyPress;
-
-            // Some Things do not work well without code behind.
-            ((WinTasksView) View).FocusListBox();
+            Model.OnHotKeyPress += async () => await OnGlobalHookKeyPress();
             ((WinTasksView) View).OnTaskKillEvent += async kill => await KillTask(kill);
         }
 
@@ -44,6 +41,8 @@ namespace WinTaskKiller.WpfApp.ViewModels
             var items = await Model.GetAll();
             WinTasks = new ObservableCollection<WinTask>(items);
             OnPropertyChanged(nameof(WinTasks));
+            // Some Things do not work well without code behind.
+            ((WinTasksView)View).FocusListBox();
         }
 
         /// <summary>
@@ -68,7 +67,7 @@ namespace WinTaskKiller.WpfApp.ViewModels
         /// <summary>
         /// Gets called when the global hook key is pressed.
         /// </summary>
-        private void OnGlobalHookKeyPress()
+        private async Task OnGlobalHookKeyPress()
         {
             if (_window.IsVisible)
             {
@@ -78,6 +77,7 @@ namespace WinTaskKiller.WpfApp.ViewModels
             {
                 _window.Show();
                 _window.Topmost = true;
+                await OnLoadAsync();
             }
         }
     }
