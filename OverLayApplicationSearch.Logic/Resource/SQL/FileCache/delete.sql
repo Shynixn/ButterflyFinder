@@ -1,1 +1,0 @@
-﻿DELETE FROM SHY_FILECACHE WHERE id = @param0;

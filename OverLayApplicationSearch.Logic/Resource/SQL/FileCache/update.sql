@@ -1,1 +1,0 @@
-﻿UPDATE SHY_FILECACHE SET name=@param0, parent_id=@param1, timetask_id=@param2 WHERE ID = @param3;

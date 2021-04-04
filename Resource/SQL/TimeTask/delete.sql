@@ -1,1 +1,0 @@
-﻿DELETE FROM SHY_TIMETASK WHERE id = @param0;

@@ -1,1 +1,0 @@
-﻿UPDATE SHY_TIMETASK SET filepath=@param0, timeschedule=@param1, lastindexedtime=@param2 WHERE ID = @param3;

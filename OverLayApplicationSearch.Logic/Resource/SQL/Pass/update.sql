@@ -1,1 +1,0 @@
-﻿UPDATE SHY_PASSKEY SET pass=@param0 WHERE ID = @param1;

@@ -1,1 +1,0 @@
-﻿INSERT INTO SHY_PASSKEY (pass) VALUES (@param0);

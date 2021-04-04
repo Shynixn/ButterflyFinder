@@ -1,1 +1,0 @@
-﻿select * from SHY_FILECACHE WHERE ID = @param0;

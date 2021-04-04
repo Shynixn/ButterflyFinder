@@ -1,1 +1,0 @@
-﻿INSERT INTO SHY_TIMETASK (filepath, timeschedule, lastindexedtime) VALUES (@param0, @param1, @param2);
