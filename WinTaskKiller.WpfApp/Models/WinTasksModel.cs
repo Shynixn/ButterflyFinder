@@ -15,12 +15,13 @@ namespace WinTaskKiller.WpfApp.Models
         /// <summary>
         ///  Creates a new instance.
         /// </summary>
-        public WinTasksModel(IWinTaskService winTaskService, IKeyboardHookService keyboardHookService)
+        public WinTasksModel(IWinTaskService winTaskService, IKeyboardHookService keyboardHookService, IAutoStartService autoStartService)
         {
             _winTaskService = winTaskService;
             var keyboardHookService1 = keyboardHookService;
             keyboardHookService1.KeyPressed += (sender, args) => OnHotKeyPress?.Invoke();
             keyboardHookService1.RegisterHotKey(ModifierKeys.Control, Keys.K);
+            autoStartService.RegisterProgramForAutoStart();
         }
 
         /// <summary>

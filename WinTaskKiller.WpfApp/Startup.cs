@@ -67,6 +67,7 @@ namespace WinTaskKiller.WpfApp
             builder.RegisterType<WinTaskService>().As<IWinTaskService>();
             builder.RegisterType<IconService>().As<IIconService>();
             builder.RegisterType<KeyboardHookService>().As<IKeyboardHookService>();
+            builder.RegisterType<AutoStartService>().As<IAutoStartService>();
 
             _container = builder.Build();
         }
