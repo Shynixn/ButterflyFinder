@@ -58,6 +58,7 @@ namespace WinTaskKiller.WpfApp
             var builder = new ContainerBuilder();
             builder.RegisterInstance(this).As<IStartup>();
             builder.RegisterInstance(new Navigator(window, this)).As<INavigator>();
+            builder.RegisterInstance(window);
 
             // Define personal classes
             builder.RegisterType<TitleBarViewModel>().As<ITitleBarViewModel>();
@@ -65,6 +66,7 @@ namespace WinTaskKiller.WpfApp
             builder.RegisterType<WinTasksModel>().As<IWinTasksModel>();
             builder.RegisterType<WinTaskService>().As<IWinTaskService>();
             builder.RegisterType<IconService>().As<IIconService>();
+            builder.RegisterType<KeyboardHookService>().As<IKeyboardHookService>();
 
             _container = builder.Build();
         }

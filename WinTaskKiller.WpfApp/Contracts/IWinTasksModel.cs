@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WinTaskKiller.Logic.Entity;
 
@@ -6,6 +7,11 @@ namespace WinTaskKiller.WpfApp.Contracts
 {
     public interface IWinTasksModel
     {
+        /// <summary>
+        /// Action which is triggered when the global hotkey is pressed.
+        /// </summary>
+        event Action OnHotKeyPress;
+
         /// <summary>
         /// Gets all current windows tasks running on the system.
         /// </summary>

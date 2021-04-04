@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows;
 using MiniMvvm.Framework;
 using MiniMvvm.Framework.Contracts;
 using WinTaskKiller.Logic.Entity;
@@ -11,6 +12,8 @@ namespace WinTaskKiller.WpfApp.ViewModels
 {
     public class WinTasksViewModel : ViewModel<IWinTasksModel>, IWinTasksViewModel
     {
+        private readonly Window _window;
+
         /// <summary>
         /// List of displayed wintasks.
         /// </summary>
@@ -21,9 +24,11 @@ namespace WinTaskKiller.WpfApp.ViewModels
         /// </summary>
         public IActionCommand<WinTask> KillTaskCommand { get; }
 
-        public WinTasksViewModel(IStartup startup) : base(startup)
+        public WinTasksViewModel(IStartup startup, Window window) : base(startup)
         {
+            _window = window;
             KillTaskCommand = new ActionCommand<WinTask>(KillTask);
+            Model.OnHotKeyPress += OnGlobalHookKeyPress;
 
             // Some Things do not work well without code behind.
             ((WinTasksView) View).FocusListBox();
@@ -58,6 +63,22 @@ namespace WinTaskKiller.WpfApp.ViewModels
             }
 
             await OnLoadAsync();
+        }
+
+        /// <summary>
+        /// Gets called when the global hook key is pressed.
+        /// </summary>
+        private void OnGlobalHookKeyPress()
+        {
+            if (_window.IsVisible)
+            {
+                _window.Hide();
+            }
+            else
+            {
+                _window.Show();
+                _window.Topmost = true;
+            }
         }
     }
 }
