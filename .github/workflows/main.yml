@@ -1,0 +1,47 @@
+name: CI
+ 
+on: [push]
+ 
+jobs:
+  build:
+    runs-on: windows-latest
+ 
+    steps:
+    - uses: actions/checkout@v2
+     
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2  
+        
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v1
+     
+    - name: Restore NuGet Packages
+      run: nuget restore WinTaskKiller.sln
+ 
+    - name: Build
+      run: | 
+       msbuild MiniMvvm.sln /p:Configuration=Release
+       Compress-Archive -Path WinTaskKiller.WpfApp\bin\Release\* -DestinationPath WinTaskKiller.zip
+       
+    - name: Create Github Release
+      if: "contains(github.event.head_commit.message, '--release') && contains(github.ref, 'master')"
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        body: "This release was automatically created by Github Actions."
+        tag_name: ${{ env.RELEASE_VERSION }}
+        release_name: Release ${{ env.RELEASE_VERSION }}
+        draft: false
+        prerelease: false
+        
+    - name: Upload Release to Github
+      if: "contains(github.event.head_commit.message, '--release') && contains(github.ref, 'master')"
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: D:\a\WinTaskKiller\WinTaskKiller\WinTaskKiller.zip
+        asset_name: WinTaskKiller.zip
+        asset_content_type: application/zip       
