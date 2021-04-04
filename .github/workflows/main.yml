@@ -20,7 +20,7 @@ jobs:
  
     - name: Build
       run: | 
-       msbuild MiniMvvm.sln /p:Configuration=Release
+       msbuild WinTaskKiller.sln /p:Configuration=Release
        Compress-Archive -Path WinTaskKiller.WpfApp\bin\Release\* -DestinationPath WinTaskKiller.zip
        
     - name: Create Github Release
