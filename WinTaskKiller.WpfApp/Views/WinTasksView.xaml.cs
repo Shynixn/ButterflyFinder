@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WinTaskKiller.Logic.Entity;
 
 namespace WinTaskKiller.WpfApp.Views
 {
@@ -20,9 +21,22 @@ namespace WinTaskKiller.WpfApp.Views
     /// </summary>
     public partial class WinTasksView : UserControl
     {
+        public event Action<WinTask> OnTaskKillEvent;
+
+
         public WinTasksView()
         {
             InitializeComponent();
+        }
+
+        public void FocusListBox()
+        {
+            Listbox.Focus();
+        }
+
+        private void Listbox_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            OnTaskKillEvent?.Invoke((WinTask) Listbox.SelectedItem);
         }
     }
 }

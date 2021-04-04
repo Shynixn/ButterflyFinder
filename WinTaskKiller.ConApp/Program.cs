@@ -14,7 +14,7 @@ namespace WinTaskKiller.ConApp
     {
         static async Task Main(string[] args)
         {
-            var winTaskService = new WinTaskService();
+            var winTaskService = new WinTaskService(new IconService());
             var tasks = await winTaskService.GetAll();
             Console.ReadLine();
         }

@@ -76,33 +76,28 @@ namespace WinTaskKiller.Logic.Service
         /// <returns><see cref="Task{TResult}"/></returns>
         public Task Kill(WinTask winTask)
         {
-            return Task.Run(async () =>
+            return Task.Run(() =>
             {
-                for (var i = 0; i < 2; i++)
+                var wmiQueryString = "SELECT ProcessId, ExecutablePath, CommandLine FROM Win32_Process";
+                using (var searcher = new ManagementObjectSearcher(wmiQueryString))
+                using (var results = searcher.Get())
                 {
-                    var wmiQueryString = "SELECT ProcessId, ExecutablePath, CommandLine FROM Win32_Process";
-                    using (var searcher = new ManagementObjectSearcher(wmiQueryString))
-                    using (var results = searcher.Get())
-                    {
-                        var query = from p in Process.GetProcesses()
-                            join mo in results.Cast<ManagementObject>()
-                                on p.Id equals (int) (uint) mo["ProcessId"]
-                            select new
-                            {
-                                Process = p,
-                                Path = (string) mo["ExecutablePath"],
-                                CommandLine = (string) mo["CommandLine"],
-                            };
-                        foreach (var item in query)
+                    var query = from p in Process.GetProcesses()
+                        join mo in results.Cast<ManagementObject>()
+                            on p.Id equals (int) (uint) mo["ProcessId"]
+                        select new
                         {
-                            if (item.Path == winTask.ExecutablePath)
-                            {
-                                item.Process.Kill();
-                            }
+                            Process = p,
+                            Path = (string) mo["ExecutablePath"],
+                            CommandLine = (string) mo["CommandLine"],
+                        };
+                    foreach (var item in query)
+                    {
+                        if (item.Path == winTask.ExecutablePath)
+                        {
+                            item.Process.Kill();
                         }
                     }
-
-                    await Task.Delay(1000);
                 }
             });
         }

@@ -10,5 +10,10 @@ namespace WinTaskKiller.WpfApp.Contracts
         /// List of displayed wintasks.
         /// </summary>
         ObservableCollection<WinTask> WinTasks { get; set; }
+
+        /// <summary>
+        /// Command which gets executed when a task should be killed.
+        /// </summary>
+        IActionCommand<WinTask> KillTaskCommand { get; }
     }
 }

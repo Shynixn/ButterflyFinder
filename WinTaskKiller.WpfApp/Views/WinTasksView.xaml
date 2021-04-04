@@ -6,9 +6,9 @@
              xmlns:local="clr-namespace:WinTaskKiller.WpfApp.Views"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <ListBox
-        ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" 
-        ItemsSource="{Binding WinTasks}">
+    <ListBox x:Name="Listbox"
+             ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch"
+             ItemsSource="{Binding WinTasks}" MouseDoubleClick="Listbox_OnMouseDoubleClick">
         <ListBox.ItemTemplate>
             <DataTemplate>
                 <StackPanel Orientation="Horizontal">
@@ -23,5 +23,9 @@
                 </StackPanel>
             </DataTemplate>
         </ListBox.ItemTemplate>
+        <ListBox.InputBindings>
+            <KeyBinding Key="Enter" Command="{Binding KillTaskCommand}"
+                        CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}}" />
+        </ListBox.InputBindings>
     </ListBox>
 </UserControl>
